@@ -13,6 +13,7 @@ import com.fkj.weixintest.bean.po.System;
 /**
  * @author kejingfeng
  *
+ *
  */
 public interface SystemRespository extends JpaRepository<System, Integer>,JpaSpecificationExecutor<System> {
 	Page<System> findByName(String name, Pageable pageable);

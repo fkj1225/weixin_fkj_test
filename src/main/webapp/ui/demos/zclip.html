@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo.zclip - 后台模板</title>
+	<link rel="stylesheet" href="demos.css" />
+	<script src="../js/jquery.js"></script>
+	<script src="../zclip/jquery.zclip.js"></script>
+</head>
+<body>
+	<div class="demo">
+		<h3 class="tit">1、复制点击节点的内容</h3>
+		<a href="http://capture.oa.com/" id="copyLink">点击复制链接</a>
+		<p class="desc">设置<code>path</code>和<code>copy</code>，copy的方法必须要返回；注意：这个插件是flash插件，本地无法调试
+		<pre>
+			$('#copyLink').zclip({ 
+			        path: '../zclip/ZeroClipboard.swf', 
+			        copy: function(){//复制内容 
+			            return $(this).attr('href'); 
+			        }, 
+			        afterCopy: function(){//复制成功 
+			            alert('复制成功') 
+			        } 
+			    }); 
+		</pre>
+		<script>
+			$(function(){ 
+			    $('#copyLink').zclip({ 
+			        path: '../zclip/ZeroClipboard.swf', 
+			        copy: function(){
+			        	return $(this).attr('href');
+			        }, 
+			        afterCopy: function(){//复制成功 
+			            alert('复制成功') 
+			        } 
+			    }); 
+			}); 
+		</script>
+	</div>
+	<div class="demo">
+		<h3 class="tit">2、复制其他内容</h3>
+		<textarea id="text1" cols="30" rows="10">复制文本框1的内容</textarea>
+		<input type="button" value="复制文本框1的内容" id="btn">
+		<pre>
+			$(function(){ 
+			    $('#btn').zclip({ 
+			        path: '../zclip/ZeroClipboard.swf', 
+			        copy: function(){//复制内容 
+			            return $('#text1').val(); 
+			        }, 
+			        afterCopy: function(){//复制成功 
+			            alert('复制成功') 
+			        } 
+			    }); 
+			}); 
+		</pre>
+		<script>
+			$(function(){ 
+			    $('#btn').zclip({ 
+			        path: '../zclip/ZeroClipboard.swf', 
+			        copy: function(){//复制内容 
+			            return $('#text1').val(); 
+			        }, 
+			        afterCopy: function(){//复制成功 
+			            alert('复制成功') 
+			        } 
+			    }); 
+			}); 
+		</script>
+	</div>
+
+</body>
+</html>

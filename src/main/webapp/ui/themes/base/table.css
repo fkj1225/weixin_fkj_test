@@ -1,0 +1,65 @@
+.table{ width: 100%; table-layout: fixed;}
+.table-200{ width: 200%;}
+.table th{ line-height: 28px; border: 1px solid #D9D6C4; color: #654B24; padding: 5px; position: relative;}
+.table tbody{ background: #fff;}
+.table td{ border: 1px solid #D9D6C4; padding: 8px 5px; text-align: center; overflow: hidden; line-height: 20px;}
+.table tfoot{ background: #eee;}
+.table .hover{ background: #f2f1f0;}
+.table .select{ background: #af9d81; color: #fff;}
+.table .select a{ color: #fff;}
+.table .sort{ display: block; height: 100%; line-height: 28px;}
+.table .sort:hover{ text-decoration: underline;}
+.table .oi{  margin-left: 10px;}
+.tb-tips{ font-weight: bold;}
+.tb-tips td{ padding: 50px 0;}
+.table a{color:#00f}
+
+.e-resize{
+	cursor: e-resize;
+}
+
+.drag-proxy{
+	position: absolute;
+	background: #333;
+	width: 1px;
+	height: 100%;
+	font-size: 0;
+	overflow: hidden;
+	cursor: e-resize;
+}
+.thead-set{
+	position: absolute; 
+	right: 5px;
+	top: 5px;
+}
+
+#theadSetBox{
+	position: absolute;
+	background: #fff;
+	border: 1px solid #D9D6C4;
+	padding: 10px 0 5px;
+	width: 200px;
+	max-height: 200px;
+	overflow-y: auto;
+}
+
+#theadSetBox li{
+	height: 22px;
+	line-height: 22px;
+	margin-bottom: 5px;
+	float: left;
+	width: 100%;
+	overflow: hidden;
+}
+#theadSetBox label{
+	display: block;
+	padding: 0 10px
+}
+#theadSetBox li:hover{
+	background: #000;
+	color: #fff;
+}
+
+#theadSetBox .placeholder{
+	background: #f7f3de;
+}

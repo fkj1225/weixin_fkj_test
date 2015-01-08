@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>js\validate.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="..\..\logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/$.ui.combobox.html">$.ui.combobox</a></li>
+            
+                <li><a href="../classes/$.ui.downlayer.html">$.ui.downlayer</a></li>
+            
+                <li><a href="../classes/$.ui.fileupload.html">$.ui.fileupload</a></li>
+            
+                <li><a href="../classes/$.ui.formtips.html">$.ui.formtips</a></li>
+            
+                <li><a href="../classes/$.ui.page.html">$.ui.page</a></li>
+            
+                <li><a href="../classes/$.ui.table.html">$.ui.table</a></li>
+            
+                <li><a href="../classes/$.ui.textui.html">$.ui.textui</a></li>
+            
+                <li><a href="../classes/$.ui.tree.html">$.ui.tree</a></li>
+            
+                <li><a href="../classes/$.ui.validate.html">$.ui.validate</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: js\validate.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * 表单验证插件&lt;br&gt;
+ * 注：这个方法适合批量处理表单验证，不能直接使用单个表单调用，比如：$(&#x27;input&#x27;).validate();
+ * 一定要使用表单的包裹层去调用
+ * @namespace 	$.ui
+ * @class validate
+ * @extends		$.widget
+ * @extends		ui.formtips
+ * @author      derrickliu
+ * @version     1.1
+ * @example
+ * $(&#x27;form&#x27;).validate({
+ * 	regexp: {
+ * 		idcard: [/^\d{17}[\dxX]$/, &#x27;请输入正确的身份证号码&#x27;],
+ * 		fax: [/^0\d{2,3}\-\d{7,8}$/,&#x27;请输入正确的传真，格式：020-11112222&#x27;, true] //true表示可以为空
+ * 		chk: [isChkOne, &#x27;最少选择一项&#x27;]
+ * 	}
+ * });
+ *	//定义一个方法，替代正则，可以做一些不好用正则去做验证的事情，返回true表示验证通过
+ * function isChkOne(){
+ *	//code
+ * }
+ * */
+(function($){
+	var
+	inputs = &#x27;:input&#x27;,
+	
+	urlstr = &#x27;^((https|http|ftp|rtsp|mms)?://)&#x27;  
+ 			+ &quot;?(([0-9a-z_!~*&#x27;().&amp;=+$%-]+: )?[0-9a-z_!~*&#x27;().&amp;=+$%-]+@)?&quot; //ftp的user@  
+ 			+ &#x27;(([0-9]{1,3}\.){3}[0-9]{1,3}&#x27; // IP形式的URL- 199.194.52.184  
+ 			+ &#x27;|&#x27; // 允许IP和DOMAIN（域名） 
+ 			+ &quot;([0-9a-z_!~*&#x27;()-]+\.)*&quot; // 域名- www.  
+ 			+ &#x27;([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.&#x27; // 二级域名  
+ 			+ &#x27;[a-z]{2,6})&#x27; // first level domain- .com or .museum  
+ 			+ &#x27;(:[0-9]{1,4})?&#x27; // 端口- :80  
+ 			+ &#x27;((/?)|&#x27; // a slash isn&#x27;t required if there is no file name  
+ 			+ &quot;(/[0-9a-z_!~*&#x27;().;?:@&amp;=+$,%#-]+)+/?)$&quot;, 
+ 			
+    urlreg = new RegExp(urlstr);  
+	
+	$.widget(&#x27;ui.validate&#x27;,{
+		version: &#x27;1.1&#x27;,
+		options: {
+			/**
+			 * 匹配规则配置项，默认配置有email,mobile,tel,qq,url,noBlank，可自定义覆盖默认
+			 * 
+			 * 配置项为一个数组，[正则|函数，验证错误的提示信息，是否可以为空（可选，用于一些需要验证的但不是必填项，true表示可以为空）]
+			 * @property regexp
+			 * @type {Object} {}
+			 * @example
+			 * regexp: {
+			 * 	idcard: [/^\d{17}[\dxX]$/, &#x27;请输入正确的身份证号码&#x27;]
+			 * }
+			 * */
+			regexp: {
+				email: [/^((([a-z]|\d|[!#\$%&amp;&#x27;\*\+\-\/=\?\^_&#x60;{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&amp;&#x27;\*\+\-\/=\?\^_&#x60;{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i, &#x27;邮件格式不正确&#x27;],
+				mobile: [/^1[358]\d{9}$/, &#x27;请输入正确的手机号码&#x27;],
+				tel: [/^[^\u4E00-\u9FA5]+$/, &#x27;电话号码不能有中文&#x27;],
+				qq: [/^\d{5,11}$/, &#x27;qq号为5-11位数字&#x27;],
+				url: [urlreg, &#x27;网址格式错误&#x27;],
+				noBlank: [/[^\s]+/,&#x27;内容不能为空&#x27;]
+			},
+			
+			/**
+			 * 验证出错添加的样式
+			 * 
+			 * @property errClassName
+			 * @type {String} 
+			 * @default &#x27;text-error&#x27;
+			 * */
+			errClassName: &#x27;text-error&#x27;,
+			/**
+			 * 提示信息的位置
+			 *
+			 * @property position
+			 * @type {String}
+			 * @default &#x27;top&#x27;
+			 */
+			position: &#x27;top&#x27;
+		},
+		
+		_create: function(){
+			this.element.delegate(inputs,{
+				focusout: $.proxy(this,&#x27;_validate&#x27;),
+				focusin: $.proxy(this,&#x27;_hideErr&#x27;),
+				click: $.proxy(this,&#x27;_hideErr&#x27;)
+			});
+			
+			if(this.element[0].tagName.toLowerCase() === &#x27;form&#x27;){
+				this._on(this.element,{
+					submit: &#x27;submit&#x27;
+				});
+			}
+		},
+		
+		_init: $.noop,
+		
+		_validate: function(event){
+			var target = $(event.currentTarget || event),
+				value = target.val(),
+				rules = target.attr(&#x27;rules&#x27;),
+				rgx, rr;
+			if(!rules || value === &#x27;&#x27; &amp;&amp; event.type === &#x27;focusout&#x27;) return true;
+			
+			rgx = this.option(&#x27;regexp&#x27;);
+			rr = rgx[rules];
+			if(rr !== undefined){
+				if(value === &#x27;&#x27;){
+					if(rr[2] === true) return true;
+//					else{
+//						this._showErr(target,&#x27;内容不能为空&#x27;);
+//						return false;
+//					}
+				}
+				if($.isFunction(rr[0])){
+					if(!rr[0](target)){
+						this._showErr(target,rr[1]);
+						return false;
+					}
+				}
+				else if(rr[0] instanceof RegExp &amp;&amp; !rr[0].test(value)){
+					this._showErr(target,rr[1]);
+					return false;
+				}
+			}
+			return true;
+		},
+		/**
+		 * 非form提交的时候，可以手动调用这个方法对整个表单来遍历一遍进行验证
+		 * @method submit
+		 * @return {Boolean}
+		 * @example
+		 * $(selector).validate(&#x27;submit&#x27;);
+		 */
+		submit: function(event){
+			var bool = false,
+				self = this;
+			this.element.find(inputs).each(function(i,n){
+				bool = self._validate(this);
+				if(!bool) {
+					return bool;
+				}
+			});
+			//取消后续的submit绑定
+			if(!bool &amp;&amp; event){
+				event.stopImmediatePropagation();
+			}
+			return bool;
+		},
+		
+		_showErr: function(target,errMsg){
+			target.addClass(this.option(&#x27;errClassName&#x27;));
+			target.formtips({
+				msg: errMsg,
+				position: this.option(&#x27;position&#x27;)
+			});
+		},
+		
+		_hideErr: function(event){
+			$(event.currentTarget).removeClass(this.option(&#x27;errClassName&#x27;));
+		}
+	});
+})(jQuery);
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

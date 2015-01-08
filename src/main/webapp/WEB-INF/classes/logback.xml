@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="30 minutes">
+	<property name="LOG_HOME" value="${server.root}/log/weixin_fkj_test" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<pattern>%d [%thread] %-5level %logger{36} %line - %msg%n
+				</pattern>
+			</layout>
+		</encoder>
+	</appender>
+
+	<appender name="SPRING-APPENDER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/springframework.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/history/springframework.log.%d{yyyy-MM-dd}.log.tar.gz
+			</FileNamePattern>
+			<MaxHistory>90</MaxHistory>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>30MB</MaxFileSize>
+		</triggeringPolicy>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<pattern>%d [%thread] %-5level %logger{36} %line - %msg%n
+				</pattern>
+			</layout>
+		</encoder>
+	</appender>
+	
+	<appender name="HIBERNATE-APPENDER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/hibernate.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/history/hibernate.log.%d{yyyy-MM-dd}.log.tar.gz
+			</FileNamePattern>
+			<MaxHistory>90</MaxHistory>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>30MB</MaxFileSize>
+		</triggeringPolicy>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<pattern>%d [%thread] %-5level %logger{36} %line - %msg%n
+				</pattern>
+			</layout>
+		</encoder>
+	</appender>
+	
+	<appender name="JTA-APPENDER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/jta.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/history/jta.log.%d{yyyy-MM-dd}.log.tar.gz
+			</FileNamePattern>
+			<MaxHistory>90</MaxHistory>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>30MB</MaxFileSize>
+		</triggeringPolicy>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<pattern>%d [%thread] %-5level %logger{36} %line - %msg%n
+				</pattern>
+			</layout>
+		</encoder>
+	</appender>
+	
+	<appender name="BUSSINESS-APPENDER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/capture_web_bussiness.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/history/capture_web_bussiness.log.%d{yyyy-MM-dd}.log.tar.gz
+			</FileNamePattern>
+			<MaxHistory>90</MaxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<pattern>%d [%thread] %-5level %logger{36} %line - %msg%n
+				</pattern>
+			</layout>
+		</encoder>
+	</appender>
+
+	<appender name="ERROR-APPENDER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>${LOG_HOME}/error_all.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/history/error_all.log.%d{yyyy-MM-dd}.log.tar.gz
+			</FileNamePattern>
+			<MaxHistory>90</MaxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<pattern>%d [%thread] %-5level %logger{36} %line - %msg%n
+				</pattern>
+			</layout>
+		</encoder>
+	</appender>
+
+	<appender name="INFO-APPENDER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>${LOG_HOME}/info.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/history/info.log.%d{yyyy-MM-dd}.log.tar.gz
+			</FileNamePattern>
+			<MaxHistory>90</MaxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<pattern>%d [%thread] %-5level %logger{36} %line - %msg%n
+				</pattern>
+			</layout>
+		</encoder>
+	</appender>
+
+	<!-- 将spring框架的log打印到spring的log文件中 不传递给root级别去打印 -->
+	<logger name="org.springframework" level="INFO" additivity="false">
+		<appender-ref ref="SPRING-APPENDER" />
+		<appender-ref ref="ERROR-APPENDER" />
+	</logger>
+	
+		<!-- jta log -->
+	<logger name="com.atomikos" level="DEBUG" additivity="false">
+		<appender-ref ref="JTA-APPENDER" />
+		<appender-ref ref="ERROR-APPENDER" />
+	</logger>
+	
+
+	<logger name="com.qq.autogenspring" level="DEBUG" additivity="false">
+		<appender-ref ref="BUSSINESS-APPENDER" />
+		<appender-ref ref="ERROR-APPENDER" />
+	</logger>
+
+	<!-- hibernate log start -->
+	<logger name="org.hibernate.type.descriptor.sql.BasicBinder"
+		level="TRACE" additivity="false">
+		<appender-ref ref="HIBERNATE-APPENDER" />
+	</logger>
+	<logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
+		<appender-ref ref="HIBERNATE-APPENDER" />
+	</logger>
+	<logger name="org.hibernate.type" level="TRACE" additivity="false">
+		<appender-ref ref="HIBERNATE-APPENDER" />
+	</logger>
+	<logger name="org.hibernate.engine.QueryParameters" level="DEBUG"
+		additivity="false">
+		<appender-ref ref="HIBERNATE-APPENDER" />
+	</logger>
+	<logger name="org.hibernate.engine.query.HQLQueryPlan" level="DEBUG"
+		additivity="false">
+		<appender-ref ref="HIBERNATE-APPENDER" />
+	</logger>
+	<!-- hibernate log end -->
+
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="ERROR-APPENDER" />
+		<appender-ref ref="INFO-APPENDER" />
+	</root>
+
+</configuration>

@@ -1,0 +1,81 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>demo.table - 后台模板</title>
+<link rel="stylesheet" href="../themes/base/inner.css" />
+<link rel="stylesheet" href="../themes/base/min/jquery-ui.min.css" />
+<link rel="stylesheet" href="../themes/base/tree.css" />
+<link rel="stylesheet" href="demos.css" />
+
+<script src="../js/jquery.js"></script>
+<script src="../js/min/jquery.ui.all.min.js"></script>
+<script src="treeData.js"></script>
+<script src="../js/tree.js"></script>
+<div class="demo">
+	<h3 class="tit">1、拿页面直出的json数据</h3>
+	<ul class="tree" id="tree1">
+	</ul>
+	<p class="desc">设置<code>data</code>
+	<p class="desc"><code>data</code>为json格式的数据：[{},{},...]; 数组里面每个项的格式为{ id: 1, text: '树节点名称', child: [], show: true}，child表示该节点有字节点，show是显示的意思，默认不显示
+	<pre>
+		$('#tree1').tree({
+			data: treeData[1]
+		});
+	</pre>
+	<script>
+	(function($){
+		$('#tree1').tree({
+			data: treeData[1]
+		});
+	})(jQuery);
+	</script>
+</div>
+
+<div class="demo">
+	<h3 class="tit">2、设置惰性加载、带checkbox和有点击节点后的回调</h3>
+	<ul class="tree" id="tree2">
+	</ul>
+	<p class="desc">惰性加载设置<code>lazyload: true</code>
+	<pre>
+		$('#tree2').tree({
+			data: treeData[0],
+			hasCheckbox: true,
+			lazyload: true,
+			click: function(e, nodeData){
+				alert('节点id='+nodeData.id + '; 节点text=' + nodeData.text);
+			}
+		});
+	</pre>
+	<script>
+	(function($){
+		$('#tree2').tree({
+			data: treeData[0],
+			hasCheckbox: true,
+			lazyload: true,
+			click: function(e, nodeData){
+				// alert('节点id='+nodeData.id + '; 节点text=' + nodeData.text);
+			}
+		});
+	})(jQuery);
+	</script>
+</div>
+
+<div class="demo">
+	<h3 class="tit">3、ajax获取节点</h3>
+	<ul class="tree" id="tree3">
+	</ul>
+	<p class="desc">设置<code>url</code>
+	<pre>
+		$('#tree3').tree({
+			url: '',
+			lazyload: true
+		});
+	</pre>
+	<script>
+	(function($){
+		$('#tree3').tree({
+			url: '',
+			lazyload: true
+		});
+	})(jQuery);
+	</script>
+</div>

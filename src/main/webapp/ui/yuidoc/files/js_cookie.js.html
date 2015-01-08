@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>js\cookie.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="..\..\logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/$.ui.combobox.html">$.ui.combobox</a></li>
+            
+                <li><a href="../classes/$.ui.downlayer.html">$.ui.downlayer</a></li>
+            
+                <li><a href="../classes/$.ui.fileupload.html">$.ui.fileupload</a></li>
+            
+                <li><a href="../classes/$.ui.formtips.html">$.ui.formtips</a></li>
+            
+                <li><a href="../classes/$.ui.page.html">$.ui.page</a></li>
+            
+                <li><a href="../classes/$.ui.table.html">$.ui.table</a></li>
+            
+                <li><a href="../classes/$.ui.textui.html">$.ui.textui</a></li>
+            
+                <li><a href="../classes/$.ui.tree.html">$.ui.tree</a></li>
+            
+                <li><a href="../classes/$.ui.validate.html">$.ui.validate</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: js\cookie.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+var Cookies = {};   
+/**  
+ * 设置Cookies  
+ */  
+Cookies.set = function(name, value){   
+     var argv = arguments;   
+     var argc = arguments.length;   
+     var expires = (argc &gt; 2) ? argv[2] : null;   
+     var path = (argc &gt; 3) ? argv[3] : &#x27;/&#x27;;   
+     var domain = (argc &gt; 4) ? argv[4] : null;   
+     var secure = (argc &gt; 5) ? argv[5] : false;   
+     document.cookie = name + &quot;=&quot; + escape (value) +   
+       ((expires == null) ? &quot;&quot; : (&quot;; expires=&quot; + expires.toGMTString())) +   
+       ((path == null) ? &quot;&quot; : (&quot;; path=&quot; + path)) +   
+       ((domain == null) ? &quot;&quot; : (&quot;; domain=&quot; + domain)) +   
+       ((secure == true) ? &quot;; secure&quot; : &quot;&quot;);   
+};   
+/**  
+ * 读取Cookies  
+ */  
+Cookies.get = function(name){   
+    var arg = name + &quot;=&quot;;   
+    var alen = arg.length;   
+    var clen = document.cookie.length;   
+    var i = 0;   
+    var j = 0;   
+    while(i &lt; clen){   
+        j = i + alen;   
+        if (document.cookie.substring(i, j) == arg)   
+            return Cookies.getCookieVal(j);   
+        i = document.cookie.indexOf(&quot; &quot;, i) + 1;   
+        if(i == 0)   
+            break;   
+    }   
+    return null;   
+};   
+/**  
+ * 清除Cookies  
+ */  
+Cookies.clear = function(name) {   
+  if(Cookies.get(name)){   
+    var expdate = new Date();    
+    expdate.setTime(expdate.getTime() - (86400 * 1000 * 1));    
+    Cookies.set(name, &quot;&quot;, expdate);    
+  }   
+};   
+  
+Cookies.getCookieVal = function(offset){   
+   var endstr = document.cookie.indexOf(&quot;;&quot;, offset);   
+   if(endstr == -1){   
+       endstr = document.cookie.length;   
+   }   
+   return unescape(document.cookie.substring(offset, endstr));   
+};   
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

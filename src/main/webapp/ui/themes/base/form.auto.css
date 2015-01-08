@@ -1,0 +1,59 @@
+.form-auto{ 
+	overflow: hidden;
+	padding: 1px 0 0 1px;
+	margin-bottom: 20px;
+	border-right: 1px solid #d9d6c4;
+	border-bottom: 1px solid #d9d6c4;
+}
+.form-auto .form-li{ 
+	float: left; 
+	width: 100%; 
+	border-left: 1px solid #d9d6c4;
+	border-top: 1px solid #d9d6c4;
+	margin-left: -1px;
+	margin-top: -1px;
+}
+.form-auto .th{ 
+	float:left; 
+	width: 120px; 
+	text-align: right;
+	background: #eceadf;
+	padding: 5px;
+	line-height: 25px;
+	font-weight: bold;
+}
+
+.form-auto .td{
+	padding: 5px 0;
+	line-height: 25px;
+	background: #fff;
+	overflow: hidden;
+	border-left: 1px solid #d9d6c4;
+}
+.form-auto select{ 
+	width: 70%; 
+	float: left;
+}
+
+.form-auto input{ 
+	margin-left: 8px;
+}
+
+.form-auto .text{ 
+	width: 85%; 
+	margin-left: 8px;
+}
+.form-auto .col-2{
+	width: 410px;
+}
+.form-auto button {
+	float: left;
+}
+
+.form-auto .btns {
+	text-align:center;
+}
+
+.form-auto .btns button{
+	float:none;
+}

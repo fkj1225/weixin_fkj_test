@@ -1,0 +1,12 @@
+.test{
+	position: absolute;
+	left: 135px;
+	top: 0;
+	width: 75px;
+	height: 54px;
+	background: url(test.png) no-repeat;
+	z-index: 100;
+}
+.test-sub{
+	left: 735px;
+}

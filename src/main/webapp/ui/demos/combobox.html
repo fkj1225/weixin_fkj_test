@@ -1,0 +1,173 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>demo.validate - 后台模板</title>
+<link rel="stylesheet" href="../themes/base/min/jquery-ui.min.css" />
+<link rel="stylesheet" href="../themes/base/inner.css" />
+<link rel="stylesheet" href="../themes/base/combobox.css" />
+<link rel="stylesheet" href="demos.css" />
+
+<script src="../js/jquery.js"></script>
+<script src="../js/jquery.ui.all.js"></script>
+
+<script src="../js/combobox.js"></script>
+<script src="../js/common.js"></script>
+<div class="demo">
+	<h3 class="tit">1、带自动完成功能</h3>
+	<p class="desc">可输入
+	<div>
+		<label for="select1">选择城市：</label>
+		<select name="select1" id="select1" >
+			<option value="">请选择</option>
+			<option value="1">广州</option>
+			<option value="2">深圳</option>
+			<option value="3">东莞</option>
+			<option value="4">佛山</option>
+			<option value="5">珠海</option>
+		</select>
+	</div>
+	<p class="desc">禁止输入
+	<div>
+		<label for="select2">选择城市：</label>
+		<select name="select2" id="select2" >
+			<option value="">请选择</option>
+			<option value="1">广州</option>
+			<option value="2">深圳</option>
+			<option value="3">东莞</option>
+			<option value="4">佛山</option>
+			<option value="5">珠海</option>
+		</select>
+		<!-- <select name="select22" id="select22" multiple="multiple" >
+			<option value="">请选择</option>
+			<option value="1">广州</option>
+			<option value="2">深圳</option>
+			<option value="3">东莞</option>
+			<option value="4">佛山</option>
+			<option value="5">珠海</option>
+		</select> -->
+	</div>
+	<p class="desc">调用方法：<code>$('select').combobox()</code>；可输入，带自动完成功能
+	<pre>
+		//最简单用法
+		$('#select1').combobox();
+		//禁止输入
+		$('#select2').combobox({
+			readonly: true
+		});
+	</pre>
+	<script>
+	$(function(){
+		//最简单用法
+		$('#select1').combobox();
+		//禁止输入
+		$('#select2').combobox({
+			readonly: true
+		});
+
+		// $('#select22').combobox();
+	});
+	</script>
+</div>
+<div class="demo">
+	<h3 class="tit">2、两个回调事件，select,change的用法</h3>
+	<div>
+		<label for="select3">选择城市：</label>
+		<select name="select3" id="select3" >
+			<option value="">请选择</option>
+			<option value="1">广州</option>
+			<option value="2">深圳</option>
+			<option value="3">东莞</option>
+			<option value="4">佛山</option>
+			<option value="5">珠海</option>
+		</select>
+	</div>
+	<p class="desc">两个回调都返回两个参数，分别是事件对象和当前选中的option对象
+	<pre>
+		$('#select3').combobox({
+			select: function(event,option){
+				$.alert('select回调，选择的项value=' + option.item.value + '; text=' + option.item.text);
+			},
+			change: function(event,option){
+				$.alert('change回调，选择的项value=' + option.item.value + '; text=' + option.item.text);
+			}
+		})
+		//支持原生的事件绑定
+		.change(function(event){
+			$.alert('自己绑定的change事件，选择的是value=' + this.value + '; text=' + this[this.selectedIndex].text);
+		});
+
+		//注：不建议绑定原生的change事件，
+		//之所以支持是为了兼容之前已经写好的应用，
+		//建议后续的使用过程使用回调
+	</pre>
+	<script>
+	$(function(){
+		$('#select3').combobox({
+			select: function(event,option){
+				$.alert('select回调，选择的项value=' + option.item.value + '; text=' + option.item.text);
+			},
+			change: function(event,option){
+				$.alert('change回调，选择的项value=' + option.item.value + '; text=' + option.item.text);
+			}
+		})
+		//支持原生的事件绑定
+		.change(function(event){
+			$.alert('自己绑定的change事件，选择的是value=' + this.value + '; text=' + this[this.selectedIndex].text);
+		});
+
+		//注：不建议绑定原生的change事件，
+		//之所以支持是为了兼容之前已经写好的应用，
+		//建议后续的使用过程使用回调来处理
+	})
+	</script>
+</div>
+
+<div class="demo">
+	<h3 class="tit">3、方法select：设置当前选中项</h3>
+	<p class="desc">通过value来设置：
+	<div>
+		<label for="select4">选择城市：</label>
+		<select name="select4" id="select4">
+			<option value="">请选择</option>
+			<option value="1">广州</option>
+			<option value="2">深圳</option>
+			<option value="3">东莞</option>
+			<option value="4">佛山</option>
+			<option value="5">珠海</option>
+		</select>
+	</div>
+	<p class="desc">通过text来设置：
+	<div>
+		<label for="select5">选择城市：</label>
+		<select name="select5" id="select5" >
+			<option value="">请选择</option>
+			<option value="1">广州</option>
+			<option value="2">深圳</option>
+			<option value="3">东莞</option>
+			<option value="4">佛山</option>
+			<option value="5">珠海</option>
+		</select>
+	</div>
+	<p class="desc">设置当前选中项，可通过value、text来设置
+	<pre>
+		//初始化
+		$('#select4,#select5').combobox();
+
+		//设置选中 value="2" 的项为当前选中项
+		$('#select4').combobox('select', {value: '2'});
+
+		//设置选中 value="东莞" 的项为当前选中项
+		$('#select5').combobox('select', {text: '东莞'});
+	</pre>
+	<script>
+	$(function(){
+		//初始化
+		$('#select4,#select5').combobox();
+		
+		//设置选中 value="2" 的项为当前选中项
+		$('#select4').combobox('select', {value: '2'});
+
+		//设置选中 value="东莞" 的项为当前选中项
+		$('#select5').combobox('select', {text: '东莞'});
+	})
+	</script>
+</div>

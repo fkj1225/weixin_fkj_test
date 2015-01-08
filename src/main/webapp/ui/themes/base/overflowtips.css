@@ -1,0 +1,7 @@
+.overflow-tips-one-line,.overflow-tips-multi-line{
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.custom-tooltip{
+	max-width: none;
+}

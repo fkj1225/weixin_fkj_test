@@ -1,0 +1,8 @@
+.alert{
+}
+.alert .ui-icon{
+	float: left;
+}
+.alert .cnt{
+	margin-left: 23px;
+}

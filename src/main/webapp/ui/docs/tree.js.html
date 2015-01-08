@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: tree.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: tree.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/**
+ * 树插件&lt;br>
+ * 1、支持惰性加载&lt;br>
+ * 2、可设定默认显示具体节点下的子节点&lt;br>
+ * 3、可设置checkbox&lt;br>
+ * 4、节点数据可以页面直出，也可以ajax获取，但都必须是json格式
+ * @fileOverview 
+ * @namespace 	ui.tree
+ * @extends		jQuery.widget
+ * @author      derrickliu
+ * @version     1.1
+ * @example
+ * $(selector).tree({
+ * 	hasCheckbox: false,
+ * 	url: 'http://xx.xx', //(或者 data: [],如果两个参数都有，url优先)
+ * 	idAttribute: 'treeId',
+ * 	//点击树节点的回调
+ * 	click: function(event,nodeData){}
+ * });
+ * */
+(function($){
+	$.widget('ui.tree',{
+		version: '1.1',
+		defaultElement: '&lt;ul>',
+		options: {
+			/**
+			 * 是否惰性加载，默认为false
+			 * 
+			 * @name ui.tree#lazyload
+			 * @type {Boolean}
+			 * @default false
+			 * */
+			lazyload: false,
+			/**
+			 * 是否带checkbox，默认为false
+			 * 
+			 * @name ui.tree#hasCheckbox
+			 * @type {Boolean}
+			 * @default false
+			 * */
+			hasCheckbox: false,
+			/**
+			 * ajax获取数据的地址
+			 * 
+			 * @name ui.tree#url
+			 * @type {String}
+			 * */
+			url: '',
+			/**
+			 * @desc 不通过ajax获取数据，直接拿页面上的数据
+			 * @desc 如果配置了url，url优先
+			 * 
+			 * @name ui.tree#data
+			 * @type {Array}
+			 * */
+			data: [],
+			/**
+			 * ajax获取数据以及惰性加载时需要用到的参数设置
+			 * 
+			 * @name ui.tree#params
+			 * @type {Object}
+			 * @example
+			 * params: {treeId: 100}
+			 * */
+			params: {},
+			/**
+			 * 节点唯一标识名称，默认为'id'
+			 * 
+			 * @name ui.tree#idAttribute
+			 * @type {String}
+			 * @default 'id'
+			 * */
+			idAttribute: 'id',
+			
+			//callbacks
+			/**
+			 * 点击树节点的回调方法，返回两个参数(event,nodeData),分别为事件对象，和节点相关的数据。	
+			 * 
+			 * @callback ui.tree#click
+			 * @param {Event} event jQuery event Object
+			 * @param {Object} nodeData {}
+			 * @example
+			 * $(selector).tree({ 
+			 * 	click: function(event,nodeData){
+			 * 		//code
+			 * 	} 
+			 * });
+			 * */
+			click: null,
+			/**
+			 * 树节点的mouseenter回调方法，返回两个参数(event,targetNode),分别为事件对象，和当前节点的jquery对象。	
+			 * 
+			 * @callback ui.tree#mouseenter
+			 * @param {Event} event jQuery event Object
+			 * @param {jQuery} target 
+			 * @example
+			 * $(selector).tree({ 
+			 * 	mouseenter: function(event,target){
+			 * 		//code
+			 * 	} 
+			 * });
+			 * */
+			mouseenter: null,
+			/**
+			 * 树节点的mouseleave回调方法，返回两个参数(event,targetNode),分别为事件对象，和当前节点的jquery对象。	
+			 * 
+			 * @callback ui.tree#mouseleave
+			 * @param {Event} event jQuery event Object
+			 * @param {jQuery} target 
+			 * @example
+			 * $(selector).tree({ 
+			 * 	mouseleave: function(event,target){
+			 * 		//code
+			 * 	} 
+			 * });
+			 * */
+			mouseleave: null								
+		},
+		
+		_create: function(){
+			this._getData();
+			this.element
+			.on('click','.node',$.proxy(this,'_click'))
+			.on('click','.chk',$.proxy(this,'_chkClick'))
+			.on('mouseenter','.node',$.proxy(this,'_mouseenter'))
+			.on('mouseleave','.node',$.proxy(this,'_mouseleave'));
+		},
+		
+		_init: $.noop,
+		
+		_getData: function(){
+			var self = this;
+			if(this.options.url){
+				$.ajax({
+					url: this.options.url,
+					type: 'POST',
+					data: this.options.params,
+					dataType: 'json',
+					success: $.proxy(this,'_createByData')
+				});
+			}else if(this.options.data){
+				this._createByData(this.options.data);
+			}
+		},
+		
+		_createByData: function(data){
+			this.element.html(this._html(data,0));
+		},
+		
+		_html: function(data,deep){
+			var html = '',
+				self = this,
+				deepStep = 12;
+			$.each(data,function(i,n){
+				var chk = '',
+					id = n[self.options.idAttribute],
+					hide = 'hide',
+					text = n.text,
+					cn = 'ui-icon ui-icon-plus';
+				if(self.options.hasCheckbox){
+					chk = '&lt;input type="checkbox" class="chk" name="'+ id +'" />';
+				}
+
+				if(n.url){
+					text = '&lt;a href="'+ n.url +'" target="'+ n.target +'">'+ text +'&lt;/a>';
+				}
+
+				//如果数据节点配置了show: true,这个优先级比全局配置的lazyload要高
+				if(n.show){
+					if(n.child && n.child.length){
+						//带迭代的html，子节点显示
+						hide = '';
+						cn = 'ui-icon ui-icon-minus';
+						html += '&lt;li>'
+							+ '&lt;div nodeId="'+ id +'" class="node parent" style="text-indent: '+ (deep * deepStep) +'px">&lt;span class="'+ cn +'">&lt;/span>'+ chk + text+'&lt;/div>'
+							+ '&lt;ul class="'+ hide +'">'
+								+ self._html(n.child, deep + 1)
+							+ '&lt;/ul>'
+						+ '&lt;/li>';
+					}else{
+						//没有子节点，或者子节点为空，直接生成叶子节点html
+						html += '&lt;li>&lt;div nodeId="'+ id +'" class="node child" style="text-indent: '+ ((deep + 1) * deepStep) +'px">'+ chk + text +'&lt;/div>&lt;/li>';
+					}
+				}else{
+					if(n.child && n.child.length) {
+						if(self.options.lazyload) {
+							//带加载提示的html
+							html += '&lt;li>'
+								+ '&lt;div nodeId="'+ id +'" class="node parent" style="text-indent: '+ (deep * deepStep) +'px">&lt;span class="'+ cn +'">&lt;/span>'+ chk + text +'&lt;/div>'
+								+ '&lt;ul class="'+ hide +'">'
+									+ '&lt;li style="text-indent: '+ ((deep + 1) * deepStep) +'px">正在加载...&lt;/li>'
+								+ '&lt;/ul>'
+							+ '&lt;/li>';
+						}else{
+							//带迭代的html，子节点隐藏
+							html += '&lt;li>'
+								+ '&lt;div nodeId="'+ id +'" class="node parent" style="text-indent: '+ (deep * deepStep) +'px">&lt;span class="'+ cn +'">&lt;/span>'+ chk + text +'&lt;/div>'
+								+ '&lt;ul class="'+ hide +'">'
+									+ self._html(n.child, deep + 1)
+								+ '&lt;/ul>'
+							+ '&lt;/li>';
+						}
+					}else{
+						//没有子节点，或者子节点为空，直接生成叶子节点html
+						html += '&lt;li>&lt;div nodeId="'+ id +'" class="node child" style="text-indent: '+ ((deep + 1) * deepStep) +'px">'+ chk + text +'&lt;/div>&lt;/li>';
+					}
+				}
+
+				n.deep = deep;
+				self._setCache(id,n);
+			});
+			return html;
+		},
+		
+		_click: function(e){
+			var t = $(e.currentTarget),
+				nodeId = t.attr('nodeId'),
+				nodeData = this._getCache(nodeId);
+			
+			this._setCurrentClass(t);
+			
+			this._setCurrentTreeNodeId(nodeId);
+			
+			if(t.is('.parent')){
+				var span = t.find('span');
+				if(span.is('.ui-icon-minus')){
+					span.removeClass('ui-icon-minus').addClass('ui-icon-plus');
+					t.next().slideUp(200);
+				}else{
+					span.removeClass('ui-icon-plus').addClass('ui-icon-minus');
+					t.next().slideDown(200);
+					
+					//如果属于惰性加载，并且是首次加载
+					if(this.options.lazyload && !nodeData.show && !t.data('isLoad')){
+						this.options.params[this.options.idAttribute] = nodeId;
+						this._loadLazy(t,nodeData);
+						t.data('isLoad',true);
+					}
+				}
+			}else if(t.is('.child')){
+				if(e.target.tagName.toLowerCase() != 'a'){
+					t.find('a')[0].click();
+				}
+			}
+			
+			this._trigger('click', e, nodeData);
+		},
+		
+		_chkClick: function(e){
+			var t = $(e.currentTarget),
+				p = t.parent(),
+				s = p.next(),
+				isChk = e.currentTarget.checked;
+			if(s && s.length){
+				s.find(':checkbox').attr('checked',isChk);
+			}
+			
+			e.stopPropagation();
+		},
+		
+		_cache: {},
+		
+		_setCache: function(id,nodeData){
+			this._cache[id] = nodeData;
+		},
+		
+		_getCache: function(id){
+			if(id === undefined){
+				return this._cache;
+			}else{
+				return this._cache[id];
+			}
+		},
+		
+		_loadLazy: function(t,data){
+			var self = this,
+				ul = t.next('ul');
+			if(this.options.url){
+				$.ajax({
+					url: this.options.url,
+					type: 'POST',
+					data: this.options.params,
+					dataType: 'json',
+					success: function(childData){
+						ul.html(self._html(childData,data.deep + 1));
+					}
+				});
+			}else if(this.options.data){
+				ul.html(self._html(data.child,data.deep + 1));
+			}
+		},
+		/**
+		 * 重新加载
+		 * @name ui.tree#reload
+		 * @function
+		 * @example
+		 * $(selector).tree('reload');
+		 */
+		reload: function(){
+			this._getData();
+		},
+
+		_setCurrentClass: function(element){
+			this.element.find('.node').removeClass('current');
+			element.addClass('current');
+		},
+
+		_setCurrentTreeNodeId: function(nodeId){
+			this._currentTreeNodeId = nodeId;
+		},
+		/**
+		 * 获取当前选中树节点数据
+		 * @name ui.tree#getCurrentTreeNode
+		 * @function
+		 * @example
+		 * $(selector).tree('getCurrentTreeNode');
+		 */
+		getCurrentTreeNode: function(){
+			return this._getCache[this._currentTreeNodeId];
+		},
+		/**
+		 * 根据节点id展开
+		 * @name ui.tree#expand
+		 * @function
+		 * @example
+		 * $(selector).tree('expand',nodeId);
+		 */
+		expand: function(nodeId){
+			this._setNodeStatus(nodeId,'visible');
+		},
+		/**
+		 * 根据节点id收缩
+		 * @name ui.tree#close
+		 * @function
+		 * @example
+		 * $(selector).tree('close',nodeId);
+		 */
+		close: function(nodeId){
+			this._setNodeStatus(nodeId,'hidden');
+		},
+
+		_setNodeStatus: function(nodeId,status){
+			var node = this._getNodeElement(nodeId);
+			if(node.next('ul').is(':' + status)){
+				this._setCurrentClass(node);
+				return;
+			}
+			node.trigger('click');
+		},
+
+		_getNodeElement: function(nodeId){
+			return this.element.find('.node[nodeid='+ nodeId +']');
+		},
+
+		_mouseenter: function(event){
+			this._trigger('mouseenter', null, $(event.currentTarget));
+		},
+		_mouseleave: function(event){
+			this._trigger('mouseleave', null, $(event.currentTarget));
+		}
+	});
+})(jQuery);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Namespaces</h3><ul><li><a href="ui.combobox.html">ui.combobox</a></li><li><a href="ui.downlayer.html">ui.downlayer</a></li><li><a href="ui.formtips.html">ui.formtips</a></li><li><a href="ui.page.html">ui.page</a></li><li><a href="ui.table.html">ui.table</a></li><li><a href="ui.textui.html">ui.textui</a></li><li><a href="ui.tree.html">ui.tree</a></li><li><a href="ui.validate.html">ui.validate</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a> on Fri Jan 17 2014 16:28:39 GMT+0800 (CST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

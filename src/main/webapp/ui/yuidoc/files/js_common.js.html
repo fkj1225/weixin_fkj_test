@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>js\common.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="..\..\logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/$.ui.combobox.html">$.ui.combobox</a></li>
+            
+                <li><a href="../classes/$.ui.downlayer.html">$.ui.downlayer</a></li>
+            
+                <li><a href="../classes/$.ui.fileupload.html">$.ui.fileupload</a></li>
+            
+                <li><a href="../classes/$.ui.formtips.html">$.ui.formtips</a></li>
+            
+                <li><a href="../classes/$.ui.page.html">$.ui.page</a></li>
+            
+                <li><a href="../classes/$.ui.table.html">$.ui.table</a></li>
+            
+                <li><a href="../classes/$.ui.textui.html">$.ui.textui</a></li>
+            
+                <li><a href="../classes/$.ui.tree.html">$.ui.tree</a></li>
+            
+                <li><a href="../classes/$.ui.validate.html">$.ui.validate</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: js\common.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+(function($) {
+	//序列化form表单的数据，返回的结果类似:{name1: value1, name2: value2}
+	//调用方式：$(selector).serializeObj(options);
+	//options可选，是不在form表单里面的数据，需要添加进去的参数
+	$.fn.extend({
+		serializeObj: function(options, traditional){
+			var arrs = this.serializeArray(),
+				i = 0,
+				j = arrs.length,
+				obj = {},
+				value,
+				name;
+			for (; i &lt; j; i++) {
+				value = arrs[i].value;
+				name = arrs[i].name;
+				if(this.find(&#x27;[name=&#x27;+ name +&#x27;]&#x27;).attr(&#x27;notrim&#x27;) === undefined){
+					value = $.trim(value);
+				}
+				if(obj[name]){
+					if(traditional){
+						if(obj[name] instanceof Array){
+							obj[name].push(value);
+						}else{
+							obj[name] = [obj[name],value];
+						}
+					}else{
+						obj[name] += &#x27;,&#x27; + value;
+					}
+				}else{
+					obj[name] = value;
+				}
+			}
+			return $.extend({},options,obj);
+		},
+		serializeStr: function(traditional){
+			var obj = this.serializeObj({},traditional),
+				tempArrs = [];
+			$.each(obj,function(i,n){
+				if(n instanceof Array){
+					$.each(n,function(j,m){
+						tempArrs.push(i + &#x27;=&#x27; + encodeURIComponent(m));
+					});
+				}else{
+					tempArrs.push(i + &#x27;=&#x27; + encodeURIComponent(n));
+				}
+			});
+			return tempArrs.join(&#x27;&amp;&#x27;).replace(/%20/g, &#x27;+&#x27;);
+		}
+	});
+
+	//弹iframe窗口的方法,
+	//调用方式：$.dialogiframe(id/*窗口id*/,url,options/*窗口参数，跟dialog一样*/)
+	$.extend({
+		dialogiframe: function(id,url,options){
+			var div = $(&#x27;#&#x27; + id),
+				iframe;
+			if(div.length){
+				iframe = div.find(&#x27;iframe&#x27;);
+				if(url == iframe.attr(&#x27;src&#x27;)){
+					div.dialog(&#x27;open&#x27;);
+					return;
+				}else{
+					div.remove();
+				}
+			}
+			div = $(&#x27;&lt;div&gt;&#x27;).attr(&#x27;id&#x27;,id).addClass(&#x27;dialog-iframe-box&#x27;);
+			iframe = $(&#x27;&lt;iframe&gt;&#x27;).attr({
+				// src: url,
+				width: &#x27;100%&#x27;,
+				height: &#x27;100%&#x27;
+			});
+			div.append(iframe).appendTo(&#x27;body&#x27;);
+			iframe.attr(&#x27;src&#x27;,url);
+			div.dialog(options);
+		}
+	});
+
+	
+	//重置系统的alert、confirm方法，$.alert();
+	$.extend({
+		alert: function(msg,callback) {
+			var 
+			icon = $(&#x27;&lt;span&gt;&#x27;).addClass(&#x27;ui-icon ui-icon-alert&#x27;),
+			cnt = $(&#x27;&lt;div&gt;&#x27;).addClass(&#x27;cnt&#x27;).html(msg),
+			div = $(&#x27;&lt;div&gt;&#x27;)
+				.attr(&#x27;title&#x27;,&#x27;系统提示&#x27;)
+				.addClass(&#x27;alert&#x27;)
+				.append(icon)
+				.append(cnt)
+				.appendTo(&#x27;body&#x27;);
+			div.dialog({
+				modal: true,
+				buttons: {
+					&#x27;确 定&#x27;: function(){
+						$(this).dialog(&#x27;close&#x27;);
+					}
+				},
+				close: function(argument){
+					if($.isFunction(callback)) callback();
+					$(this).remove();
+					div = null;
+				}
+			});
+		},
+		confirm: function(msg,callback){
+			var 
+			icon = $(&#x27;&lt;span&gt;&#x27;).addClass(&#x27;ui-icon ui-icon-alert&#x27;),
+			cnt = $(&#x27;&lt;div&gt;&#x27;).addClass(&#x27;cnt&#x27;).html(msg),
+			div = $(&#x27;&lt;div&gt;&#x27;)
+				.attr(&#x27;title&#x27;,&#x27;系统提示&#x27;)
+				.addClass(&#x27;alert&#x27;)
+				.append(icon)
+				.append(cnt)
+				.appendTo(&#x27;body&#x27;);
+			div.dialog({
+				modal: true,
+				buttons: {
+					&#x27;取 消&#x27;: function() {
+						$(this).dialog(&#x27;close&#x27;);
+					},
+					&#x27;确 定&#x27;: function(){
+						if($.isFunction(callback)) callback();
+						$(this).dialog(&#x27;close&#x27;);
+					}
+				},
+				close: function(argument){
+					$(this).remove();
+					div = null;
+				}
+			});
+		}
+	});
+
+	/*********overflowtips**********/
+	$(function(){
+		//单行
+		$(&#x27;.overflow-tips-one-line&#x27;).tooltip({
+			items: &#x27;.overflow-tips-one-line&#x27;,
+			content: function(){
+				return $(this).html();
+			},
+			tooltipClass: &#x27;custom-tooltip&#x27;
+		});
+		//多行
+		$(&#x27;.overflow-tips-multi-line&#x27;).tooltip({
+			items: &#x27;.overflow-tips-multi-line&#x27;,
+			content: function(){
+				return $(this).html();
+			}
+		});
+	});
+
+	//表单自动收缩
+	$(function(){
+		var formbox = $(&#x27;.form-box&#x27;),
+			formtitle = formbox.find(&#x27;.form-title&#x27;),
+			tips = $(&#x27;&lt;span&gt;&#x27;).addClass(&#x27;form-title-tips&#x27;).text(&#x27;点击此处可以折叠/打开&#x27;);
+
+		if(!formbox.length){
+			return;
+		}
+
+
+		formtitle.append(tips);
+		formbox.accordion({
+			collapsible: true
+		});
+
+		formbox.on(&#x27;submit&#x27;,function(e){
+			$(&#x27;.form-box&#x27;).accordion(&#x27;option&#x27;,&#x27;active&#x27;,1);
+		});
+	});
+
+	//表单高级简单搜索
+	$(function(){
+		var lm = $(&#x27;.form-less-more&#x27;),
+			tagName = &#x27;&#x27;,
+			trs = null,
+			hideTrs = null,
+			hideInputs = null;
+		//把带.less-search及其以上的tr显示
+		// $(&#x27;.less-more&#x27;).find(&#x27;.less-search&#x27;).last().show().prev().show();
+		
+		if(!lm.length){
+			return;
+		}
+		tagName = lm[0].tagName.toLowerCase();
+
+		if(tagName === &#x27;table&#x27;){
+			trs = lm.find(&#x27;tr&#x27;);
+		}else if(tagName === &#x27;ul&#x27;){
+			trs = lm.find(&#x27;li&#x27;);
+		}
+
+		hideTrs = trs.not(&#x27;.less-search&#x27;);
+		hideInputs = hideTrs.find(&#x27;:input&#x27;);
+
+		//disabled掉隐藏的:input
+		hideInputs.attr(&#x27;disabled&#x27;,true);
+
+		//从简单切到高级
+		$(&#x27;.ui-btn-zoomin&#x27;).live(&#x27;click&#x27;,function(){
+			hideTrs.show();
+			if(tagName === &#x27;ul&#x27;){
+				$.autoLayout();
+			}
+			hideInputs.removeAttr(&#x27;disabled&#x27;);
+			$(this).button(&#x27;destroy&#x27;)
+				.removeClass(&#x27;ui-btn-zoomin&#x27;).addClass(&#x27;ui-btn-zoomout&#x27;).text(&#x27;简单查询&#x27;)
+				.button({
+					icons: {
+						primary: &quot;ui-icon-zoomout&quot;
+					}
+				}).blur();
+		});
+
+		//从高级切到简单
+		$(&#x27;.ui-btn-zoomout&#x27;).live(&#x27;click&#x27;,function(){
+			hideTrs.hide();
+			hideInputs.attr(&#x27;disabled&#x27;,true);
+			$(this).button(&#x27;destroy&#x27;)
+				.removeClass(&#x27;ui-btn-zoomout&#x27;).addClass(&#x27;ui-btn-zoomin&#x27;).text(&#x27;高级查询&#x27;)
+				.button({
+					icons: {
+						primary: &quot;ui-icon-zoomin&quot;
+					}
+				}).blur();
+		});
+
+		
+	});
+
+	//ajax set
+	$(function(){
+		//ajax全局设置
+		$.ajaxSetup({
+			// dataType: &#x27;json&#x27;,
+			type: &#x27;POST&#x27;,
+			cache: false
+		});
+		var isErr = false;
+		//ajax tips
+		function ajaxStart(){
+			isErr = false;
+			var loading = $(&#x27;#ajaxLoading&#x27;);
+			if(!loading.length){
+				loading = createLoading();
+			}
+			loading.removeClass()
+				.addClass(&#x27;ajax-succ&#x27;)
+				.text(&#x27;正在加载...&#x27;)
+				.show();
+		}
+
+		function ajaxStop(){
+			var time = isErr ? 5000 : 0;
+			$(&#x27;#ajaxLoading&#x27;).delay(time).fadeOut(500);
+		}
+
+		function ajaxError(event,request,settings){
+			isErr = true;
+			var loading = $(&#x27;#ajaxLoading&#x27;);
+			if(!loading.length){
+				loading = createLoading();
+			}
+			loading.removeClass()
+				.addClass(&#x27;ui-state-error&#x27;)
+				.text(&#x27;请求出错：&#x27; + settings.url)
+				.show();
+		}
+
+		function createLoading(){
+			var loading = $(&#x27;&lt;div&gt;&#x27;)
+					.attr(&#x27;id&#x27;,&#x27;ajaxLoading&#x27;)
+					.appendTo(&#x27;body&#x27;);
+			return loading;
+		}
+		//ajax状态显示
+		$(&#x27;body&#x27;)
+			.ajaxStart(ajaxStart)
+			.ajaxStop(ajaxStop)
+			.ajaxError(ajaxError);
+	});
+})(jQuery);
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

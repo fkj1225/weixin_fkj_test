@@ -1,0 +1,66 @@
+.form-title-tips{
+	position: absolute;
+	top: 50%;
+	height: 16px;
+	font-weight: normal;
+	margin-top: -8px;
+	right: 10px;
+	font-size: 12px;
+	color: #666;
+}
+.ui-state-hover .form-title-tips,
+.ui-state-focus .form-title-tips{
+	color: #fff;
+}
+.ui-state-active .form-title-tips{
+	color: #666;
+}
+.form-list{ width: 100%; margin-bottom: 20px; background: #fff;}
+.form-list th{ width: 80px; padding: 5px; vertical-align: top; text-align: right; border: 1px solid #d9d6c4; background: #eceadf; line-height: 24px;}
+.form-list td{ padding: 5px; border: 1px solid #d9d6c4; vertical-align: top; line-height: 24px;}
+
+.form-list textarea{ width: 98%; line-height: 20px;}
+.form-list .btns{ padding: 10px 0; text-align: center;}
+.form-list .btns button,.form-list .btns input{ margin: 0 15px;}
+table.form-less-more tr{
+	display: none;
+}
+ul.form-less-more li{
+	display: none;
+}
+table.form-less-more .less-search{
+	display: table-row;
+	_display: block;
+}
+ul.form-less-more .less-search{
+	display: block;
+}
+.form-btns-bar{
+	height: 30px;
+	margin-bottom: 20px;
+	margin-top: -20px;
+	padding: 5px;
+	border: 1px solid #d9d6c4;
+	border-top: none;
+}
+.form-btns-bar button{
+	margin-right: 10px;
+}
+
+.form-list .w-10{ width: 10%;}
+.form-list .w-20{ width: 20%;}
+.form-list .w-30{ width: 30%;}
+.form-list .w-40{ width: 40%;}
+.form-list .w-50{ width: 50%;}
+.form-list .w-60{ width: 60%;}
+.form-list .w-70{ width: 70%;}
+.form-list .w-80{ width: 80%;}
+.form-list .w-90{ width: 90%;}
+
+.form-search-box form{
+	display: none;
+}
+.form-search-bar{
+	text-align: center;
+	padding: 3px 0;
+}

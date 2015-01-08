@@ -1,0 +1,144 @@
+html,body,div,p,span,a,strong,form,table,th,td,ul,li,ol,dl,dt,dd,h1,h2,h3,h4,h5,h6,fieldset,iframe,object,pre,img,b,i,input, textarea, button, select{margin: 0; outline: 0 none; padding: 0;}
+iframe,img{ border: 0 none;}
+ul,ol,li{ list-style: none;}
+table{border-spacing: 0; border-collapse: collapse;}
+fieldset,img { border: 0 none;}
+h1, h2, h3, h4, h5, h6 {font-size: 100%;}
+body, table, input, textarea, button, select {font: 12px/1 "\5FAE\8F6F\96C5\9ED1";}
+html,body{ background: #fff;}
+
+html{ background: #fff; width: 100%; height: 100%;overflow-y: scroll; overflow-x: auto;}
+body{ padding: 10px; }
+
+.path-bar{ width: 100%; padding: 10px 0;}
+.path{ color: #333;}
+.path a{ color: #333;}
+.table-bar{ padding: 4px 0; width: 100%; border-radius: 6px; margin: 1px 0; overflow: hidden;}
+
+.table-bar .btns-bar{ padding: 0 15px; margin-bottom: 0;}
+.btns-bar .btns{ margin-right: 10px;}
+
+a{ text-decoration: none; color: #00f;}
+
+.fl{ float: left;}
+.fr{ float: right;}
+.clr{ clear: both;}
+.clrfix:after {content: ".";display: block;height: 0;clear:both;visibility: hidden;}
+.clrfix {display: inline-block;}
+.text{ padding: 3px; vertical-align: middle;}
+.text2{ width: 200px;}
+.text3{ width: 300px;}
+.text4{ width: 400px;}
+.text5{ width: 500px;}
+
+.color-hot{ color: #f00;}
+
+.dialog-iframe-box{ overflow: hidden!important;}
+
+
+/*main*/
+.help-links{
+	height: 35px;
+	background: #f5f5f5;
+	border-bottom: 1px solid #ccc;
+	position: absolute;
+	left: 0;
+	top: 0;
+	line-height: 35px;
+	width: 100%;
+}
+.help-links a{
+	margin: 0 10px;
+	display: inline-block;
+}
+.help-links a:hover{
+	text-decoration: underline;
+}
+.index-msg{ 
+	font-size: 32px; 
+	font-weight: normal; 
+	text-align: center; 
+	margin-top: 120px;
+}
+.search-bar{
+	width: 600px;
+	margin: 30px auto 10px;
+}
+#search{
+	width: 592px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 16px;
+	text-indent: .5em;
+	font-weight: normal;
+}
+.ui-menu-item b{
+	font-size: 14px;
+	display: block;
+	margin-bottom: 2px;
+}
+
+.profile{
+	width: 600px;
+	margin: 50px auto 0;
+	overflow: hidden;
+}
+.profile li{
+	float: left;
+	width: 270px;
+	margin-bottom: 20px;
+	border: 1px solid #ccc;
+	padding: 10px;
+	border-radius: 5px;
+}
+.profile li:hover{
+	border-color: #333;
+	background-color: #f5f5f5;
+}
+.profile li:nth-child(odd){
+	float: right;
+}
+
+.profile a{
+	color: #000;
+}
+.profile b{
+	font-size: 14px;
+	display: block;
+	margin-bottom: 10px;
+}
+.profile .path{
+	font-size: 12px;
+	color: #666;
+	line-height: 18px;
+	height: 36px;
+	overflow: hidden;
+	display:block;
+}
+
+.no-limit a{
+	color: #999;
+}
+#ajaxLoading{
+	position: fixed;
+	bottom: 0;
+	font-size: 16px;
+	width: 90%;
+	text-align: center;
+	z-index: 1000;
+	height: 40px;
+	line-height: 40px;
+	left: 5%;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	font-weight: bold;
+}
+.ajax-succ{
+	background: #7eb808;
+	color: #fff;
+}
+
+.tabs .ui-icon-close{
+	float: left;
+    margin: 5px 5px 0 0;
+}

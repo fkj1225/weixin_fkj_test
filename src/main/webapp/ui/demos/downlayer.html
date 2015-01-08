@@ -1,0 +1,124 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>demo.downlayer - 后台模板</title>
+<link rel="stylesheet" href="../themes/base/min/jquery-ui.min.css" />
+<link rel="stylesheet" href="../themes/base/inner.css" />
+<link rel="stylesheet" href="demos.css" />
+<style>
+.clicked{ color: #f00;}
+.layer{position: absolute;display: none; width: 120px;}
+</style>
+
+
+<div class="demo">
+	<h3 class="tit">1、最简单用法</h3>
+	<input type="button" value="请选择一个业务" id="btn1" class="ui-btn" />
+	<p class="desc">只需指定一个<code>target</code>即可，默认下拉的层是位于点击目标的下方，且相对于点击目标左右居中
+	<pre>
+		$('#btn1').downlayer({
+			target: '#m1'
+		});
+	</pre>
+</div>
+<div class="demo">
+	<h3 class="tit">2、目标点击后带状态</h3>
+	<input type="button" value="请选择一个业务" id="btn2" class="ui-btn" />
+	<p class="desc">在配置项设置<code>tgClass</code>，点击后为目标增加一个样式
+	<pre>
+		$('#btn2').downlayer({
+			target: '#m1', 
+			tgClass: 'clicked'
+		});
+	</pre>
+</div>
+
+<div class="demo">
+	<h3 class="tit">3、设置偏移量</h3>
+	<input type="button" value="请选择一个业务" id="btn3" class="ui-btn" />
+	<p class="desc">在配置项设置<code>margin</code>，这个例子是相对左偏移10px，相对上偏移10px，值可以为负数
+	<pre>
+		$('#btn3').downlayer({
+			target: '#m1', 
+			margin: { l: 10, t: 10}
+		});
+	</pre>
+</div>
+
+<div class="demo">
+	<h3 class="tit">4、设置居右</h3>
+	<input type="button" value="请选择一个业务" id="btn4" class="ui-btn" />
+	<p class="desc">在配置项设置<code>position</code>为“r”即可，上下左右分别为：t,b,l,r
+	<pre>
+		$('#btn4').downlayer({
+			target: '#m1', 
+			position: 'r'
+		});
+	</pre>
+</div>
+
+<div class="demo">
+	<h3 class="tit">5、回调</h3>
+	<input type="button" value="请选择一个业务" id="btn5" />
+	<p class="desc">有两个回调，分别是：显示下拉层之前触发的<code>beforeShow</code>、隐藏下拉层之前触发的<code>beforeHide</code>。
+	<pre>
+		$('#btn5').downlayer({
+			target: '#m1',
+			beforeShow: function(event){
+				alert('显示下拉层之前要干的活写在这里');
+			},
+			beforeHide: function(event){
+				alert('隐藏下拉层之前要干的活写在这里');
+			}
+		});
+	</pre>
+</div>
+
+<div class="dl-box" id="modulesBox">
+	<div class="txt">dddddddddd</div>
+	<div class="a-b">
+		<div class="a"></div>
+	</div>
+</div>
+
+<ul id="m1" class="layer">
+	<li><a href="">腾讯手机管家</a>
+	<li><a href="">QQ同步助手</a>
+	<li><a href="">腾讯手机管家</a>
+	<li><a href="">QQ同步助手</a>
+</ul>
+<script src="../js/jquery.js"></script>
+<script src="../js/min/jquery.ui.all.min.js"></script>
+<script src="../js/downlayer.js"></script>
+<script src="../js/form.state.init.js"></script>
+<script>
+$('#btn1').downlayer({
+	target: '#m1'
+});
+
+$('#m1').menu();
+//$('#btn1').downlayer('option','target','#modulesBox');
+$('#btn2').downlayer({
+	target: '#m1', 
+	tgClass: 'clicked'
+});
+
+$('#btn3').downlayer({
+	target: '#m1', 
+	margin: { l: 10, t: 10}
+});
+
+$('#btn4').downlayer({
+	target: '#m1', 
+	position: 'r'
+});
+
+$('#btn5').downlayer({
+	target: '#m1', 
+	beforeShow: function(event){
+		alert('显示下拉层之前要干的活写在这里');
+	},
+	beforeHide: function(event){
+		alert('隐藏下拉层之前要干的活写在这里');
+	}
+});
+</script>

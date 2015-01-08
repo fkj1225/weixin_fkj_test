@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: page.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: page.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/**
+ * 翻页插件
+ * 
+ * @fileOverview 
+ * @namespace 	ui.page
+ * @extends		jQuery.widget
+ * @author      derrickliu
+ * @version     1.1
+ * @example
+ * $(selector).page({
+ * 	pageNo: 1,
+ * 	pageSize: 100,
+ * 	pageTotal: 1000,
+ * 	pageCount: 10	//pageTotal / pageSize
+ * 	//点击翻页、跳转的回调
+ * 	jump: function(event,options){}
+ * });
+ */
+(function($){
+	$.widget('ui.page',{
+		version: '1.1',
+		options: {
+			/**
+			 * 当前页码
+			 * 
+			 * @name ui.page#pageNo
+			 * @type {Number} 
+			 * */
+			pageNo: 0,
+			/**
+			 * 每页显示的列表数
+			 * 
+			 * @name ui.page#pageSize
+			 * @type {Number} 
+			 * */
+			pageSize: 0,
+			/**
+			 * 总的列表数
+			 * 
+			 * @name ui.page#pageTotal
+			 * @type {Number} 
+			 * */
+			pageTotal: 0,
+			/**
+			 * 总页数，总的列表数 / 每页显示的列表数
+			 * 
+			 * @name ui.page#pageCount
+			 * @type {Number} 
+			 * */
+			pageCount: 0,
+	    	
+	    	//callbacks
+			/**
+			 * 点击翻页、跳转的回调
+			 * 
+			 * @callback ui.page#jump
+			 * @param {Event} event jQuery event Object
+			 * @param {Object} options {pageNo: 2, pageSize: 100}
+			 * @example
+			 * $(selector).accrodion({ 
+			 * 	click: function(event,options){
+			 * 		//code
+			 * 	} 
+			 * });
+			 */
+	    	jump: null
+		},
+		_create: function(){
+			this._createPageBar();
+			// this.update();
+			
+			this.element
+				.delegate('a', 'click', $.proxy(this, '_pageBtnClick'))
+				.delegate(':text', {
+					'keypress': $.proxy(this, '_keypressFilter'),
+					'keyup': $.proxy(this, '_pageTextJump')
+				});
+		},
+		_init: $.noop,
+		
+		/**
+		 * 更新翻页的表现
+		 * 
+		 * @name ui.page#update
+		 * @function
+		 * @example
+		 * 显示第一项
+		 * $(selector).page('update');
+		 */
+		update: function(){
+			var firstStatus = false,
+				prevStatus = false,
+				nextStatus = false,
+				lastStatus = false;
+		
+			if(this.options.pageNo == 1){
+				firstStatus = prevStatus = true;
+				
+			}
+			if(this.options.pageNo == this.options.pageCount){
+				nextStatus = lastStatus = true;
+			}
+
+			this._first.button({
+				disabled: firstStatus
+			});
+			this._prev.button({
+				disabled: prevStatus
+			});
+
+			this._next.button({
+				disabled: nextStatus
+			});
+			this._last.button({
+				disabled: lastStatus
+			});
+
+			this._total.text('共' + this.options.pageTotal + '条');
+			this._countBar
+				.find('.page-count-text').val(this.options.pageNo)
+				.end()
+				.find('.page-count').text(this.options.pageCount);
+			this._sizeBar.find('.page-size-text').val(this.options.pageSize);
+		},
+
+		_createPageBar: function(){
+			this._total = $('&lt;span>').addClass('page-total');
+			this._first = $('&lt;a>').addClass('page-first').text('第一页');
+			this._prev = $('&lt;a>').addClass('page-prev').text('上一页');
+			this._countBar = 
+					$('&lt;span>')
+					.addClass('page-count-bar')
+					.html('第&lt;input type="text" class="text page-count-text" value="1" title="按回车键跳转" /> /&lt;span class="page-count">1&lt;/span>页');
+			this._next = $('&lt;a>').addClass('page-next').text('下一页');
+			this._last = $('&lt;a>').addClass('page-last').text('最后一页');
+			this._sizeBar = 
+					$('&lt;span>')
+					.addClass('page-size-bar')
+					.html('&lt;input type="text" class="text page-size-text" value="0" title="按回车键跳转" /> 条/页');
+			this.element
+				.append(this._total)
+				.append(this._first)
+				.append(this._prev)
+				.append(this._countBar)
+				.append(this._next)
+				.append(this._last)
+				.append(this._sizeBar);
+			this._countBar
+				.find('.page-count-text').textui();
+			this._sizeBar.find('.page-size-text').textui();
+			this._first.button({
+				text: false,
+				icons: {
+					primary: 'ui-icon-seek-first'
+				}
+			});
+			this._prev.button({
+				text: false,
+				icons: {
+					primary: 'ui-icon-seek-prev'
+				}
+			});
+			this._next.button({
+				text: false,
+				icons: {
+					primary: 'ui-icon-seek-next'
+				}
+			});
+			this._last.button({
+				text: false,
+				icons: {
+					primary: 'ui-icon-seek-end'
+				}
+			});
+		},
+		
+		_jump: function(){
+			var o = this.options;
+			if(o.pageNo > o.pageCount) o.pageNo = o.pageCount;
+			else if(o.pageNo &lt; 1) o.pageNo = 1;
+			
+			this._trigger('jump', null, {pageNo: o.pageNo, pageSize: o.pageSize});
+		},
+		
+		_pageBtnClick: function(e){
+			var t = $(e.currentTarget),
+				className = /(page-\w{4,5})/.exec(t.attr('class'))[1],
+				o = this.options;
+			switch(className){
+			case 'page-next':
+				o.pageNo++;
+				break;
+			case 'page-prev':
+				o.pageNo--;
+				break;
+			case 'page-first':
+				o.pageNo = 1;
+				break;
+			case 'page-last':
+				o.pageNo = o.pageCount;
+				break;
+			}
+			this._jump();
+			return false;
+		},
+		
+		_keypressFilter: function(e){
+			if(!/^\d+$/.test(String.fromCharCode(e.charCode)) && e.charCode > 9 && !e.ctrlKey){
+				e.preventDefault();
+			}
+		},
+		
+		_pageTextJump: function(e){
+			var t = $(e.currentTarget),
+				value = t.val();
+			if(t.is('.page-count-text')){
+				this.options.pageNo = parseInt( value, 10 );
+			}else{
+				this.options.pageSize = parseInt( value, 10 );
+			}
+			if(e.keyCode == 13){
+				this._jump();
+			}
+		}
+	});
+})(jQuery);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Namespaces</h3><ul><li><a href="ui.combobox.html">ui.combobox</a></li><li><a href="ui.downlayer.html">ui.downlayer</a></li><li><a href="ui.formtips.html">ui.formtips</a></li><li><a href="ui.page.html">ui.page</a></li><li><a href="ui.table.html">ui.table</a></li><li><a href="ui.textui.html">ui.textui</a></li><li><a href="ui.tree.html">ui.tree</a></li><li><a href="ui.validate.html">ui.validate</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a> on Fri Jan 17 2014 16:28:39 GMT+0800 (CST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

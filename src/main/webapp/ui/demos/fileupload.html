@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>html5 fileupload</title>
+	<link rel="stylesheet" href="../themes/base/min/jquery-ui.min.css" />
+	<link rel="stylesheet" href="../themes/base/inner.css" />
+	<link rel="stylesheet" href="../themes/base/fileupload.css" />
+	<link rel="stylesheet" href="../uploadify/uploadify.css" />
+	<link rel="stylesheet" href="demos.css" />
+
+	<script src="../js/jquery.js"></script>
+	<script src="../js/min/jquery.ui.all.min.js"></script>
+	<script src="../js/fileupload.js"></script>
+	<script src="../uploadify/jquery.uploadify.min.js"></script>
+</head>
+<body>
+	<div class="demo">
+		<h3 class="tit">1、上传图片带预览功能 ,多选</h3>
+		<input type="file" name="files" id="fileupload" multiple accept="image/*">
+		<p class="desc">注意事项：
+		<p class="desc">h5上传的一些限制：html代码上配置多选<code>multiple</code>,特定类型的上传文件配置<code>accept</code>
+		<p class="desc">不支持h5的在<code>uploadify</code>属性配置，具体参考<a target="_blank" href="http://www.uploadify.com/documentation/">uploadify插件</a>
+		<pre>
+			//html代码
+			&lt;input type="file" name="files" id="fileupload" multiple accept="image/*"&gt;
+			//js代码
+			$('#fileupload').fileupload({
+				//这个上传接口是bob提供
+				url: '../../autogen/tools/upload.do',
+				//data的参数也是bob接口要求
+				data: {
+					method: 'upload',
+					appName: 'secure',
+					dir: '/msoft/downloader/upload_test/'
+				},
+				//如果上传的是图片可以预览
+				preview: true,
+				text: '选择文件',
+				//上传文件的大小限制
+				size: '5MB',
+				success: function(event,json){
+					console.log(json.msg);
+				},
+				error: function(event,json){},
+				//针对uploadify控件配置属性
+				uploadify: {
+					onUploadComplete: function(file){
+						// alert(file.name);
+					},
+					//文件类型描述
+					fileTypeDesc : 'Image Files',
+					//文件类型限制
+					fileTypeExts : '*.gif; *.jpg; *.png',
+					width: 90,
+					height: 25
+				}
+			});
+		</pre>
+		<script>
+	
+			$('#fileupload').fileupload({
+				url: '../../autogen/tools/upload.do',
+				data: {
+					method: 'upload',
+					appName: 'secure',
+					dir: '/msoft/downloader/upload_test/'
+				},
+				preview: true,
+				text: '选择文件',
+				size: '5MB',
+				success: function(event,json){
+					console.log(json.msg);
+				},
+				error: function(event,json){},
+				uploadify: {
+					onUploadComplete: function(file){
+						// alert(file.name);
+					},
+					//文件类型描述
+					fileTypeDesc : 'Image Files',
+					//文件类型限制
+					fileTypeExts : '*.gif; *.jpg; *.png',
+					width: 90,
+					height: 25
+				}
+			});
+
+		</script>
+	</div>
+	
+	<div class="demo">
+		<h3 class="tit">2、不限定文件类型</h3>
+		<input type="file" name="files" id="fileupload2" multiple>
+		<p class="desc">文件类型没有限制，但是大小限制为200KB
+		<pre>
+			//html代码
+			&lt;input type="file" name="files" id="fileupload" multiple &gt;
+			//js代码
+			$('#fileupload2').fileupload({
+				//这个上传接口是bob提供
+				url: '../../autogen/tools/upload.do',
+				//data的参数也是bob接口要求
+				data: {
+					method: 'upload',
+					appName: 'secure',
+					dir: '/msoft/downloader/upload_test/'
+				},
+				//如果上传的是图片可以预览
+				preview: true,
+				text: '选择文件',
+				//上传文件的大小限制
+				size: '200KB',
+				success: function(event,json){
+					console.log(json.msg);
+				},
+				error: function(event,json){},
+				//针对uploadify控件配置属性
+				uploadify: {
+					width: 90,
+					height: 25
+				}
+			});
+		</pre>
+		<script>
+	
+			$('#fileupload2').fileupload({
+				//这个上传接口是bob提供
+				url: '../../autogen/tools/upload.do',
+				//data的参数也是bob接口要求
+				data: {
+					method: 'upload',
+					appName: 'secure',
+					dir: '/msoft/downloader/upload_test/'
+				},
+				//如果上传的是图片可以预览
+				preview: true,
+				text: '选择文件',
+				//上传文件的大小限制
+				size: '200KB',
+				success: function(event,json){
+					console.log(json.msg);
+				},
+				error: function(event,json){},
+				//针对uploadify控件配置属性
+				uploadify: {
+					width: 90,
+					height: 25
+				}
+			});
+
+		</script>
+	</div>
+	
+</body>
+</html>

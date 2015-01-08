@@ -1,0 +1,23 @@
+/*.icon-page-first,.icon-page-prev,.icon-page-next,.icon-page-last{ margin-right: 20px; background: url(images/page.png) no-repeat; width: 16px; height: 16px; display: inline-block; vertical-align: middle;}
+a.icon-page-first{ background-position: 0 0;}
+i.icon-page-first{ background-position: 0 -16px;}
+
+a.icon-page-prev{ background-position: -16px 0;}
+i.icon-page-prev{ background-position: -16px -16px;}
+
+a.icon-page-last{ background-position: -32px 0;}
+i.icon-page-last{ background-position: -32px -16px;}
+
+a.icon-page-next{ background-position: -48px 0;}
+i.icon-page-next{ background-position: -48px -16px;}
+
+a.icon-page-first:hover{ background-position: 0 -32px;}
+a.icon-page-prev:hover{ background-position: -16px -32px;}
+a.icon-page-last:hover{ background-position: -32px -32px;}
+a.icon-page-next:hover{ background-position: -48px -32px;}
+*/
+.page-bar .ui-button{ margin-right: 10px;}
+.page-bar .text{ width: 30px; text-align: center;}
+
+.page-bar .page-count-bar, .page-bar .page-total{margin-right: 10px; }
+.page-bar .page-size-bar{ margin-right: 20px;}

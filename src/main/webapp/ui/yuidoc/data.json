@@ -1,0 +1,1944 @@
+{
+    "project": {
+        "logo": "../logo.png"
+    },
+    "files": {
+        "js\\combobox.js": {
+            "name": "js\\combobox.js",
+            "modules": {},
+            "classes": {
+                "$.ui.combobox": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "$.ui": 1
+            }
+        },
+        "js\\common.js": {
+            "name": "js\\common.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\cookie.js": {
+            "name": "js\\cookie.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\downlayer.js": {
+            "name": "js\\downlayer.js",
+            "modules": {},
+            "classes": {
+                "$.ui.downlayer": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "$.ui": 1
+            }
+        },
+        "js\\fileupload.js": {
+            "name": "js\\fileupload.js",
+            "modules": {},
+            "classes": {
+                "$.ui.fileupload": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "$.ui": 1
+            }
+        },
+        "js\\formtips.js": {
+            "name": "js\\formtips.js",
+            "modules": {},
+            "classes": {
+                "$.ui.formtips": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "$.ui": 1
+            }
+        },
+        "js\\jquery.ui.all.js": {
+            "name": "js\\jquery.ui.all.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\jquery.ui.effect.js": {
+            "name": "js\\jquery.ui.effect.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\jquery.ui.timepicker.js": {
+            "name": "js\\jquery.ui.timepicker.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "js\\page.js": {
+            "name": "js\\page.js",
+            "modules": {},
+            "classes": {
+                "$.ui.page": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "$.ui": 1
+            }
+        },
+        "js\\table.js": {
+            "name": "js\\table.js",
+            "modules": {},
+            "classes": {
+                "$.ui.table": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "$.ui": 1
+            }
+        },
+        "js\\textui.js": {
+            "name": "js\\textui.js",
+            "modules": {},
+            "classes": {
+                "$.ui.textui": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "$.ui": 1
+            }
+        },
+        "js\\tree.js": {
+            "name": "js\\tree.js",
+            "modules": {},
+            "classes": {
+                "$.ui.tree": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "$.ui": 1
+            }
+        },
+        "js\\validate.js": {
+            "name": "js\\validate.js",
+            "modules": {},
+            "classes": {
+                "$.ui.validate": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "$.ui": 1
+            }
+        }
+    },
+    "modules": {},
+    "classes": {
+        "$.ui.combobox": {
+            "name": "$.ui.combobox",
+            "shortname": "$.ui.combobox",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "$.ui",
+            "file": "js\\combobox.js",
+            "line": 1,
+            "description": "combobox，主要是用于select ui初始化",
+            "extends": "$.widget",
+            "version": "1.1",
+            "author": "derrickliu"
+        },
+        "$.ui.downlayer": {
+            "name": "$.ui.downlayer",
+            "shortname": "$.ui.downlayer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "$.ui",
+            "file": "js\\downlayer.js",
+            "line": 1,
+            "description": "下拉层，主要是用于需要点击下拉层，点击其他地方隐藏层",
+            "extends": "{$.widget}",
+            "version": "1.1",
+            "author": "derrickliu"
+        },
+        "$.ui.fileupload": {
+            "name": "$.ui.fileupload",
+            "shortname": "$.ui.fileupload",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "$.ui",
+            "file": "js\\fileupload.js",
+            "line": 1,
+            "description": "h5 上传插件\n支持h5的浏览器使用h5上传\n不支持h5的浏览器使用uploadify上传",
+            "version": "1.0",
+            "author": "derrickliu",
+            "extends": "{$.widget}"
+        },
+        "$.ui.formtips": {
+            "name": "$.ui.formtips",
+            "shortname": "$.ui.formtips",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "$.ui",
+            "file": "js\\formtips.js",
+            "line": 1,
+            "description": "表单提示插件",
+            "extends": "$.widget",
+            "author": "derrickliu",
+            "version": "1.1",
+            "example": [
+                "\n$(selector).formtips({\n\tmsg: '电话格式错误',\n\tposition: 'top'\n});"
+            ]
+        },
+        "$.ui.page": {
+            "name": "$.ui.page",
+            "shortname": "$.ui.page",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "$.ui",
+            "file": "js\\page.js",
+            "line": 1,
+            "description": "翻页插件",
+            "extends": "$.widget",
+            "author": "derrickliu",
+            "version": "1.1",
+            "example": [
+                "\n$(selector).page({\n\tpageNo: 1,\n\tpageSize: 100,\n\tpageTotal: 1000,\n\tpageCount: 10\t//pageTotal / pageSize\n\t//点击翻页、跳转的回调\n\tjump: function(event,options){}\n});"
+            ]
+        },
+        "$.ui.table": {
+            "name": "$.ui.table",
+            "shortname": "$.ui.table",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "$.ui",
+            "file": "js\\table.js",
+            "line": 1,
+            "description": "表格插件<br>\n1、可设置checkbox和行数<br>\n2、支持排序<br>\n3、支持页面直出html<br>",
+            "example": [
+                "\n最简单的用法\n$(selector).table();\n\n最全面的使用",
+                "\n\n$(selector).table({\t\n\tsort: true,\t\t\t\t\t//是否支持排序，默认为false\n\tsingleSelect: true,\t\t\t//单选，false表示可以多选，默认为单选true\n\thasRowNumbers: true,\n\thasCheckbox: true,\n\tparams: {},\t\t\t\t\t//获取table列表的参数\n\thead: [],\t\t\t\t\t//定义头部，每个数组是一个对象：{name: '列字段(key)', text: '列名称', width: '列宽度', sort: true}\n\turl: '',\t\t\t\t\t//ajax获取数据的地址，返回的数据格式参考下面的data\n\tdata: null,\t\t\t\t\t//页面自定义或者直接吐到页面的数据，如果设置了url，url优先\n\t//callbacks\n\tloadBefore: function(){}\t//加载数据之前触发的回调\n\tloadEnd: function(event,data){}\t\t//加载数据之后触发的回调\n\tselected: function(event,rowData){}\t\t//选择行触发的回调\n\tunselected: function(event,rowData){}\t//取消选择行触发的回调\n\tdblclick: function(event,rowData){}\t\t//双击行触发的回调\n\tallSelected: function(event,allRowData){}\t//全选触发的回调\n\tallUnSelected: function(event,allRowData){}\t//取消全选触发的回调\n});"
+            ],
+            "version": "1.1",
+            "author": "derrickliu",
+            "extends": "{$.widget}"
+        },
+        "$.ui.textui": {
+            "name": "$.ui.textui",
+            "shortname": "$.ui.textui",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "$.ui",
+            "file": "js\\textui.js",
+            "line": 1,
+            "description": "表单文本框<br>\n$(selector).textui();",
+            "extends": "$.widget",
+            "author": "derrickliu",
+            "version": "1.0",
+            "example": [
+                "\n$(selector).textui();"
+            ]
+        },
+        "$.ui.tree": {
+            "name": "$.ui.tree",
+            "shortname": "$.ui.tree",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "$.ui",
+            "file": "js\\tree.js",
+            "line": 1,
+            "description": "树插件<br>\n1、支持惰性加载<br>\n2、可设定默认显示具体节点下的子节点<br>\n3、可设置checkbox<br>\n4、节点数据可以页面直出，也可以ajax获取，但都必须是json格式",
+            "extends": "$.widget",
+            "author": "derrickliu",
+            "version": "1.1",
+            "example": [
+                "\n$(selector).tree({\n\thasCheckbox: false,\n\turl: 'http://xx.xx', //(或者 data: [],如果两个参数都有，url优先)\n\tidAttribute: 'treeId',\n\t//点击树节点的回调\n\tclick: function(event,nodeData){}\n});"
+            ]
+        },
+        "$.ui.validate": {
+            "name": "$.ui.validate",
+            "shortname": "$.ui.validate",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "$.ui",
+            "file": "js\\validate.js",
+            "line": 1,
+            "description": "表单验证插件<br>\n注：这个方法适合批量处理表单验证，不能直接使用单个表单调用，比如：$('input').validate();\n一定要使用表单的包裹层去调用",
+            "extends": "ui.formtips",
+            "author": "derrickliu",
+            "version": "1.1",
+            "example": [
+                "\n$('form').validate({\n\tregexp: {\n\t\tidcard: [/^\\d{17}[\\dxX]$/, '请输入正确的身份证号码'],\n\t\tfax: [/^0\\d{2,3}\\-\\d{7,8}$/,'请输入正确的传真，格式：020-11112222', true] //true表示可以为空\n\t\tchk: [isChkOne, '最少选择一项']\n\t}\n});\n\t//定义一个方法，替代正则，可以做一些不好用正则去做验证的事情，返回true表示验证通过\nfunction isChkOne(){\n\t//code\n}"
+            ]
+        }
+    },
+    "classitems": [
+        {
+            "file": "js\\combobox.js",
+            "line": 12,
+            "description": "是否只读，只能通过点击下拉，不能输入，默认为false",
+            "itemtype": "property",
+            "name": "readonly",
+            "type": "{Boolean}",
+            "default": "false",
+            "class": "$.ui.combobox",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\combobox.js",
+            "line": 20,
+            "description": "是否不可操作，默认为false",
+            "itemtype": "property",
+            "name": "disabled",
+            "type": "{Boolean}",
+            "default": "false",
+            "class": "$.ui.combobox",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\combobox.js",
+            "line": 29,
+            "description": "更改选项的时候触发",
+            "itemtype": "event",
+            "name": "change",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "option",
+                    "description": "dom Object",
+                    "type": "Dom"
+                }
+            ],
+            "example": [
+                "\n$(selector).combobox({ \n\tchange: function(event, option){\n\t\t//code\n\t} \n});"
+            ],
+            "class": "$.ui.combobox",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\combobox.js",
+            "line": 44,
+            "description": "选择选项的时候触发",
+            "itemtype": "event",
+            "name": "select",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "option",
+                    "description": "dom Object",
+                    "type": "Dom"
+                }
+            ],
+            "example": [
+                "\n$(selector).combobox({ \n\tselect: function(event, option){\n\t\t//code\n\t} \n});"
+            ],
+            "class": "$.ui.combobox",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\combobox.js",
+            "line": 221,
+            "description": "设置当前选中项，可以通过value设置，也可以通过text设置",
+            "itemtype": "method",
+            "name": "select",
+            "params": [
+                {
+                    "name": "options",
+                    "description": "{value: 'option的value'}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n$(selector).combobox('select', { text: 'option的文本'});"
+            ],
+            "class": "$.ui.combobox",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\combobox.js",
+            "line": 259,
+            "description": "设置enable",
+            "itemtype": "method",
+            "name": "enable",
+            "example": [
+                "\n$(selector).combobox('enable');"
+            ],
+            "class": "$.ui.combobox",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\combobox.js",
+            "line": 268,
+            "description": "disable",
+            "itemtype": "method",
+            "name": "disable",
+            "example": [
+                "\n$(selector).combobox('disable');"
+            ],
+            "class": "$.ui.combobox",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\common.js",
+            "line": 134,
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\cookie.js",
+            "line": 2,
+            "description": "设置Cookies",
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\cookie.js",
+            "line": 18,
+            "description": "读取Cookies",
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\cookie.js",
+            "line": 37,
+            "description": "清除Cookies",
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\downlayer.js",
+            "line": 14,
+            "description": "目标层，点击后显示的层，值是string类型的选择器(selector)，比如target: '#dropHelpBox'",
+            "itemtype": "property",
+            "name": "target",
+            "type": "{String}",
+            "default": "''",
+            "example": [
+                "\n$(selector).downlayer({\ntarget: '#dropHelpBox'\n});",
+                "\n$(selector).downlayer('option','target','#dropHelpBox');"
+            ],
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\downlayer.js",
+            "line": 27,
+            "description": "下拉层显示后，给点击的目标dom对象增加一个css类",
+            "itemtype": "property",
+            "name": "tgClass",
+            "type": "{String}",
+            "default": "'droped'",
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\downlayer.js",
+            "line": 34,
+            "description": "偏移量控制",
+            "itemtype": "property",
+            "name": "margin",
+            "type": "{Object}",
+            "default": "{l: 0, r: 0, b: 0, t: 0}",
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\downlayer.js",
+            "line": 41,
+            "description": "是否相对于当前document偏移",
+            "itemtype": "property",
+            "name": "offset",
+            "type": "{Boolean}",
+            "default": "true",
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\downlayer.js",
+            "line": 48,
+            "description": "相对显示位置",
+            "itemtype": "property",
+            "name": "position",
+            "type": "{String}",
+            "default": "'b'",
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\downlayer.js",
+            "line": 55,
+            "description": "触发的事件类型，支持click、hover",
+            "itemtype": "property",
+            "name": "eventType",
+            "type": "{String}",
+            "default": "'click'",
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\downlayer.js",
+            "line": 63,
+            "description": "是否立即触发",
+            "itemtype": "property",
+            "name": "isFire",
+            "type": "{Boolean}",
+            "default": "false",
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\downlayer.js",
+            "line": 72,
+            "description": "显示下拉层之前触发的回调",
+            "itemtype": "event",
+            "name": "beforeShow",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                }
+            ],
+            "example": [
+                "\n$(selector).downlayer({ \n\tbeforeShow: function(event){\n\t\t//code\n\t} \n});",
+                "\n$(selector).accrodion('option', 'beforeShow', function(event){});"
+            ],
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\downlayer.js",
+            "line": 87,
+            "description": "显示下拉层之后触发的回调",
+            "itemtype": "event",
+            "name": "afterShow",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                }
+            ],
+            "example": [
+                "\n$(selector).downlayer({ \n\tafterShow: function(event){\n\t\t//code\n\t} \n});",
+                "\n$(selector).accrodion('option', 'afterShow', function(event){});"
+            ],
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\downlayer.js",
+            "line": 102,
+            "description": "隐藏下拉层之前触发的回调",
+            "itemtype": "event",
+            "name": "beforeHide",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                }
+            ],
+            "example": [
+                "\n$(selector).downlayer({ \n\tbeforeHide: function(event){\n\t\t//code\n\t} \n});",
+                "\n$(selector).accrodion('option', 'beforeHide', function(event){});"
+            ],
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\downlayer.js",
+            "line": 117,
+            "description": "隐藏下拉层之后触发的回调",
+            "itemtype": "event",
+            "name": "afterHide",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                }
+            ],
+            "example": [
+                "\n$(selector).downlayer({ \n\tafterHide: function(event){\n\t\t//code\n\t} \n});",
+                "\n$(selector).accrodion('option', 'afterHide', function(event){});"
+            ],
+            "class": "$.ui.downlayer",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\fileupload.js",
+            "line": 15,
+            "description": "上传地址",
+            "type": "{String}",
+            "itemtype": "property",
+            "name": "url",
+            "default": "''",
+            "class": "$.ui.fileupload",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\fileupload.js",
+            "line": 22,
+            "description": "上传要带的参数",
+            "type": "{Object}",
+            "itemtype": "property",
+            "name": "data",
+            "default": "null",
+            "class": "$.ui.fileupload",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\fileupload.js",
+            "line": 29,
+            "description": "上传图片是否需要预览",
+            "type": "{Boolean}",
+            "itemtype": "property",
+            "name": "preview",
+            "default": "true",
+            "class": "$.ui.fileupload",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\fileupload.js",
+            "line": 36,
+            "description": "上传文件的大小限制，有B,KB,MB,GB四种单位，默认为KB",
+            "type": "{String}",
+            "itemtype": "property",
+            "name": "size",
+            "default": "''",
+            "class": "$.ui.fileupload",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\fileupload.js",
+            "line": 43,
+            "description": "上传按钮的文字",
+            "type": "{String}",
+            "itemtype": "property",
+            "name": "text",
+            "default": "'选择文件'",
+            "class": "$.ui.fileupload",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\fileupload.js",
+            "line": 50,
+            "description": "基于uploadify上传需要加的配置，具体参考http://www.uploadify.com/documentation/",
+            "type": "{Object}",
+            "itemtype": "property",
+            "name": "text",
+            "default": "'选择文件'",
+            "example": [
+                "\nuploadify: {\nwidth: 100,\nheight: 20,\nuploadLimit: 5\n}"
+            ],
+            "class": "$.ui.fileupload",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\fileupload.js",
+            "line": 65,
+            "description": "上传成功的回调\n返回的json格式：{result: 0, msg: '上传成功', info: { url: '',...}}。",
+            "itemtype": "event",
+            "name": "success",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "data",
+                    "description": "{}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n$(selector).fileupload({ \n\tsuccess: function(event, json){\n\t\t//code\n\t} \n});"
+            ],
+            "class": "$.ui.fileupload",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\fileupload.js",
+            "line": 80,
+            "description": "上传失败的回调",
+            "itemtype": "event",
+            "name": "error",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "data",
+                    "description": "{}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n$(selector).fileupload({ \n\terror: function(event,json){\n\t\t//code\n\t} \n});"
+            ],
+            "class": "$.ui.fileupload",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\formtips.js",
+            "line": 18,
+            "description": "提示文本",
+            "itemtype": "property",
+            "name": "msg",
+            "type": "{String}",
+            "default": "''",
+            "link": "sss",
+            "class": "$.ui.formtips",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\formtips.js",
+            "line": 26,
+            "description": "提示语显示的相对位置，顶部top，底部bottom，左侧left，右侧right。默认顶部top",
+            "itemtype": "property",
+            "name": "position",
+            "type": "{String}",
+            "default": "'top'",
+            "class": "$.ui.formtips",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.all.js",
+            "line": 13389,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.all.js",
+            "line": 13390,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.all.js",
+            "line": 13391,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.all.js",
+            "line": 13594,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.all.js",
+            "line": 13595,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.all.js",
+            "line": 13596,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.all.js",
+            "line": 13941,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.all.js",
+            "line": 13942,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.all.js",
+            "line": 13943,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.effect.js",
+            "line": 684,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.effect.js",
+            "line": 685,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.effect.js",
+            "line": 686,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.effect.js",
+            "line": 889,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.effect.js",
+            "line": 890,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.effect.js",
+            "line": 891,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.effect.js",
+            "line": 1236,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.effect.js",
+            "line": 1237,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.effect.js",
+            "line": 1238,
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.timepicker.js",
+            "line": 1761,
+            "description": "Get the timezone offset as string from a date object (eg '+0530' for UTC+5.5)",
+            "params": [
+                {
+                    "name": "date",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": "string"
+            },
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.timepicker.js",
+            "line": 1773,
+            "description": "Calls `timepicker()` on the `startTime` and `endTime` elements, and configures them to\nenforce date range limits.\nn.b. The input value must be correctly formatted (reformatting is not supported)",
+            "params": [
+                {
+                    "name": "Element",
+                    "description": "startTime"
+                },
+                {
+                    "name": "Element",
+                    "description": "endTime"
+                },
+                {
+                    "name": "obj",
+                    "description": "options Options for the timepicker() call"
+                }
+            ],
+            "return": {
+                "description": "jQuery"
+            },
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.timepicker.js",
+            "line": 1786,
+            "description": "Calls `datetimepicker` on the `startTime` and `endTime` elements, and configures them to\nenforce date range limits.",
+            "params": [
+                {
+                    "name": "Element",
+                    "description": "startTime"
+                },
+                {
+                    "name": "Element",
+                    "description": "endTime"
+                },
+                {
+                    "name": "obj",
+                    "description": "options Options for the `timepicker()` call. Also supports `reformat`,\n  a boolean value that can be used to reformat the input values to the `dateFormat`."
+                },
+                {
+                    "name": "string",
+                    "description": "method Can be used to specify the type of picker to be added"
+                }
+            ],
+            "return": {
+                "description": "jQuery"
+            },
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.timepicker.js",
+            "line": 1800,
+            "description": "Calls `method` on the `startTime` and `endTime` elements, and configures them to\nenforce date range limits.",
+            "params": [
+                {
+                    "name": "Element",
+                    "description": "startTime"
+                },
+                {
+                    "name": "Element",
+                    "description": "endTime"
+                },
+                {
+                    "name": "obj",
+                    "description": "options Options for the `timepicker()` call. Also supports `reformat`,\n  a boolean value that can be used to reformat the input values to the `dateFormat`."
+                },
+                {
+                    "name": "string",
+                    "description": "method Can be used to specify the type of picker to be added"
+                }
+            ],
+            "return": {
+                "description": "jQuery"
+            },
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\jquery.ui.timepicker.js",
+            "line": 1815,
+            "description": "Calls `method` on the `startTime` and `endTime` elements, and configures them to\nenforce date range limits.",
+            "params": [
+                {
+                    "name": "string",
+                    "description": "method Can be used to specify the type of picker to be added"
+                },
+                {
+                    "name": "Element",
+                    "description": "startTime"
+                },
+                {
+                    "name": "Element",
+                    "description": "endTime"
+                },
+                {
+                    "name": "obj",
+                    "description": "options Options for the `timepicker()` call. Also supports `reformat`,\n  a boolean value that can be used to reformat the input values to the `dateFormat`."
+                }
+            ],
+            "return": {
+                "description": "jQuery"
+            },
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\page.js",
+            "line": 23,
+            "description": "当前页码",
+            "itemtype": "property",
+            "name": "pageNo",
+            "type": "{Number}",
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\page.js",
+            "line": 30,
+            "description": "每页显示的列表数",
+            "itemtype": "property",
+            "name": "pageSize",
+            "type": "{Number}",
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\page.js",
+            "line": 37,
+            "description": "总的列表数",
+            "itemtype": "property",
+            "name": "pageTotal",
+            "type": "{Number}",
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\page.js",
+            "line": 44,
+            "description": "总页数，总的列表数 / 每页显示的列表数",
+            "itemtype": "property",
+            "name": "pageCount",
+            "type": "{Number}",
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\page.js",
+            "line": 53,
+            "description": "点击翻页、跳转的回调",
+            "itemtype": "event",
+            "name": "jump",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "options",
+                    "description": "{pageNo: 2, pageSize: 100}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n$(selector).accrodion({ \n\tclick: function(event,options){\n\t\t//code\n\t} \n});"
+            ],
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\page.js",
+            "line": 81,
+            "description": "更新翻页的表现",
+            "itemtype": "method",
+            "name": "update",
+            "example": [
+                "\n显示第一项\n$(selector).page('update');"
+            ],
+            "class": "$.ui.page",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 42,
+            "description": "是否支持排序，默认为false",
+            "itemtype": "property",
+            "name": "sort",
+            "type": "{Boolean}",
+            "default": "false",
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 49,
+            "description": "是否只能选中一行，如果没有设置行带checkbox，默认为true，表示只能选中一行，如果设置了带checkbox，这个配置可以忽略",
+            "itemtype": "property",
+            "name": "singleSelect",
+            "type": "{Boolean}",
+            "default": "true",
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 56,
+            "description": "是否带行号，默认不带，false",
+            "itemtype": "property",
+            "name": "hasRowNumbers",
+            "type": "{Boolean}",
+            "default": "false",
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 63,
+            "description": "是否带checkbox，默认不带，false",
+            "itemtype": "property",
+            "name": "hasCheckbox",
+            "type": "{Boolean}",
+            "default": "false",
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 70,
+            "description": "获取表格列表的参数",
+            "itemtype": "property",
+            "name": "params",
+            "type": "{Object}",
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 79,
+            "description": "行的唯一标识名称，默认为'id'",
+            "itemtype": "property",
+            "name": "idAttribute",
+            "type": "{String}",
+            "default": "'id'",
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 86,
+            "description": "定义表格列表头部，数组的每个项是一个对象：\n{\n\tname: '列字段(key)', \n\ttext: '列名称', \n\twidth: '列宽度', \n\tsort: true, \n\ttmpl: '模板', \n\torder: 'desc', \n\tsortBy: '按其他字段排序',\n\tshow: '是否显示' //默认为true\n}\n其中name和text是必选的，其他的可选",
+            "itemtype": "property",
+            "name": "head",
+            "type": "{Array}",
+            "default": "[]",
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 104,
+            "description": "ajax获取数据的地址",
+            "itemtype": "property",
+            "name": "url",
+            "type": "{String}",
+            "default": "''",
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 111,
+            "description": "页面自定义或者直接吐到页面的数据，如果设置url，url优先",
+            "itemtype": "property",
+            "name": "data",
+            "type": "{Object}",
+            "default": "null",
+            "example": [
+                "\ndata: {\n\tlist: [],\t\t//list是个数组，每项都是一个对象，至少有一个键值对，如：{id: 1, filenName: 'xx.html', fileSize: '100M'}\n\tpageNo: 1,\n\tpageSize: 100,\n\tpageTotal: 1000,\n\tpageCount: 10\n}"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 126,
+            "description": "data里面字段的自定义配置",
+            "itemtype": "property",
+            "name": "dataKeyConfig",
+            "type": "{Object}",
+            "default": "{\n\tlist: 'list',\n\tpageNo: 'pageNo',\n\tpageSize: 'pageSize',\n\tpageTotal: 'pageTotal',\n\tpageCount: 'pageCount'\n}",
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 148,
+            "description": "加载表格数据之前触发的回调，\n如果返回false将阻止table后续load，包括ajax请求、按data数据生成html。",
+            "itemtype": "event",
+            "name": "loadBefore",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                }
+            ],
+            "example": [
+                "\n$(selector).table({ \n\tloadBefore: function(event){\n\t\t//code\n\t} \n});"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 162,
+            "description": "ajax拿到数据后，用这个方法可以处理你的原始数据，这个方法需要返回处理好的数据",
+            "itemtype": "event",
+            "name": "origin",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "{}",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "data {}",
+                "type": "Object"
+            },
+            "example": [
+                "\n$(selector).table({ \n\torigin: function(data){\n\t\t//返回的data为当前页面获得的表格数据\n\t\t//return data;\t\n\t} \n});"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 177,
+            "description": "拿到数据后，用这个方法可以处理进过dataKeyConfig配置后的原始数据，这个方法需要返回处理好的数据",
+            "itemtype": "event",
+            "name": "process",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "{}",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "data {}",
+                "type": "Object"
+            },
+            "example": [
+                "\n$(selector).table({ \n\tprocess: function(data){\n\t\t//返回的data为当前页面获得的表格数据\n\t\t//return data;\t\n\t} \n});"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 192,
+            "description": "加载表格数据之后触发的回调",
+            "itemtype": "event",
+            "name": "loadEnd",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "data",
+                    "description": "{}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n$(selector).table({ \n\tloadEnd: function(event,data){\n\t\t//返回的data为当前页面获得的表格数据\n\t} \n});"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 206,
+            "description": "点击行触发的回调",
+            "itemtype": "event",
+            "name": "click",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "rowData",
+                    "description": "{}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n$(selector).table({ \n\tclick: function(event,rowData){\n\t\t//返回的rowData为当前行的数据\n\t} \n});"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 220,
+            "description": "选择行触发的回调",
+            "itemtype": "event",
+            "name": "selected",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "rowData",
+                    "description": "{}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n$(selector).table({ \n\tselected: function(event,rowData){\n\t\t//返回的rowData为当前行的数据\n\t} \n});"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 234,
+            "description": "取消选择行触发的回调",
+            "itemtype": "event",
+            "name": "unselected",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "rowData",
+                    "description": "{}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n$(selector).table({ \n\tunselected: function(event,rowData){\n\t\t//返回的rowData为当前行的数据\n\t} \n});"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 248,
+            "description": "双击行触发的回调",
+            "itemtype": "event",
+            "name": "dblclick",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "rowData",
+                    "description": "{}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n$(selector).table({ \n\tdblclick: function(event,rowData){\n\t\t//返回的rowData为当前行的数据\n\t} \n});"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 262,
+            "description": "全选触发的回调",
+            "itemtype": "event",
+            "name": "allSelected",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "allRowData",
+                    "description": "[]",
+                    "type": "Array"
+                }
+            ],
+            "example": [
+                "\n$(selector).table({ \n\tallSelected: function(event,allRowData){\n\t\t//返回的allRowData为当前页面所有行的数据\n\t} \n});"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 276,
+            "description": "取消全选触发的回调",
+            "itemtype": "event",
+            "name": "allUnSelected",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "allRowData",
+                    "description": "[]",
+                    "type": "Array"
+                }
+            ],
+            "example": [
+                "\n$(selector).table({ \n\tallUnSelected: function(event,allRowData){\n\t\t//返回的allRowData为当前行的数据\n\t} \n});"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 290,
+            "description": "排序的回调，table为直出的html需要排序功能可以使用",
+            "itemtype": "event",
+            "name": "sortStart",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "sortParams",
+                    "description": "{}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n$(selector).table({ \n\tsortStart: function(event,sortParams){\n\t\t//sortParams = {sortBy: '排序的字段', order: '升序|降序', pageNo: 1}\n\t} \n});"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 304,
+            "description": "排序的回调，table为直出的html需要排序功能可以使用",
+            "itemtype": "event",
+            "name": "sortEnd",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "ui",
+                    "description": "{}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n$(selector).table({ \n\tsortEnd: function(event,ui){\n\t\t\t \t\t//ui = {\n\t\t\t\t\t\tcurrent: {},\n\t\t\t\t\t\told: []\n\t\t\t \t\t}\n\t} \n});"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 321,
+            "description": "ajax获取数据错误的回调",
+            "itemtype": "event",
+            "name": "error",
+            "params": [
+                {
+                    "name": "xhr",
+                    "description": "",
+                    "type": "Xhr"
+                },
+                {
+                    "name": "msg",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n$(selector).table({ \n\terror: function(xhr,msg){\n\t\t//alert('错误：' + xhr.responseText);\n\t} \n});"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 634,
+            "description": "获取选中行的数据",
+            "itemtype": "method",
+            "name": "getChecked",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "example": [
+                "\n$(selector).table('getChecked');"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 650,
+            "description": "重新加载表格，可设置重置的参数，参数类型参考配置项params",
+            "itemtype": "method",
+            "name": "reload",
+            "params": [
+                {
+                    "name": "newParams",
+                    "description": "{}",
+                    "type": "Object"
+                },
+                {
+                    "name": "isClearOldParams",
+                    "description": "Boolean",
+                    "type": "Boolean"
+                }
+            ],
+            "example": [
+                "\n$(selector).table('reload',newParams,isClearOldParams);"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 666,
+            "description": "获取配置项的参数",
+            "itemtype": "method",
+            "name": "getParams",
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "example": [
+                "\n$(selector).table('getParams');\n\n不建议使用，建议使用通用的获取配置项方法：\n$(selector).table('option','params');"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\table.js",
+            "line": 679,
+            "description": "重置表格，使用最初配置的项重新加载表格",
+            "itemtype": "method",
+            "name": "reset",
+            "example": [
+                "\n$(selector).table('reset');"
+            ],
+            "class": "$.ui.table",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\tree.js",
+            "line": 26,
+            "description": "是否惰性加载，默认为false",
+            "itemtype": "property",
+            "name": "lazyload",
+            "type": "{Boolean}",
+            "default": "false",
+            "class": "$.ui.tree",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\tree.js",
+            "line": 34,
+            "description": "是否带checkbox，默认为false",
+            "itemtype": "property",
+            "name": "hasCheckbox",
+            "type": "{Boolean}",
+            "default": "false",
+            "class": "$.ui.tree",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\tree.js",
+            "line": 42,
+            "description": "ajax获取数据的地址",
+            "itemtype": "property",
+            "name": "url",
+            "type": "{String}",
+            "class": "$.ui.tree",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\tree.js",
+            "line": 49,
+            "description": "如果配置了url，url优先",
+            "itemtype": "property",
+            "name": "data",
+            "type": "{Array}",
+            "class": "$.ui.tree",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\tree.js",
+            "line": 57,
+            "description": "ajax获取数据以及惰性加载时需要用到的参数设置",
+            "itemtype": "property",
+            "name": "params",
+            "type": "{Object}",
+            "example": [
+                "\nparams: {treeId: 100}"
+            ],
+            "class": "$.ui.tree",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\tree.js",
+            "line": 66,
+            "description": "节点唯一标识名称，默认为'id'",
+            "itemtype": "property",
+            "name": "idAttribute",
+            "type": "{String}",
+            "default": "'id'",
+            "class": "$.ui.tree",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\tree.js",
+            "line": 76,
+            "description": "点击树节点的回调方法，返回两个参数(event,nodeData),分别为事件对象，和节点相关的数据。",
+            "itemtype": "event",
+            "name": "click",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "nodeData",
+                    "description": "{}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n$(selector).tree({ \n\tclick: function(event,nodeData){\n\t\t//code\n\t} \n});"
+            ],
+            "class": "$.ui.tree",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\tree.js",
+            "line": 90,
+            "description": "树节点的mouseenter回调方法，返回两个参数(event,targetNode),分别为事件对象，和当前节点的jquery对象。",
+            "itemtype": "event",
+            "name": "mouseenter",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "target",
+                    "description": "",
+                    "type": "JQuery"
+                }
+            ],
+            "example": [
+                "\n$(selector).tree({ \n\tmouseenter: function(event,target){\n\t\t//code\n\t} \n});"
+            ],
+            "class": "$.ui.tree",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\tree.js",
+            "line": 104,
+            "description": "树节点的mouseleave回调方法，返回两个参数(event,targetNode),分别为事件对象，和当前节点的jquery对象。",
+            "itemtype": "event",
+            "name": "mouseleave",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "jQuery event Object",
+                    "type": "Event"
+                },
+                {
+                    "name": "target",
+                    "description": "",
+                    "type": "JQuery"
+                }
+            ],
+            "example": [
+                "\n$(selector).tree({ \n\tmouseleave: function(event,target){\n\t\t//code\n\t} \n});"
+            ],
+            "class": "$.ui.tree",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\tree.js",
+            "line": 292,
+            "description": "重新加载",
+            "itemtype": "method",
+            "name": "reload",
+            "example": [
+                "\n$(selector).tree('reload');"
+            ],
+            "class": "$.ui.tree",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\tree.js",
+            "line": 310,
+            "description": "获取当前选中树节点数据",
+            "itemtype": "method",
+            "name": "getCurrentTreeNode",
+            "example": [
+                "\n$(selector).tree('getCurrentTreeNode');"
+            ],
+            "class": "$.ui.tree",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\tree.js",
+            "line": 319,
+            "description": "根据节点id展开",
+            "itemtype": "method",
+            "name": "expand",
+            "params": [
+                {
+                    "name": "nodeId",
+                    "description": "节点ID",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n$(selector).tree('expand',nodeId);"
+            ],
+            "class": "$.ui.tree",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\tree.js",
+            "line": 329,
+            "description": "根据节点id收缩",
+            "itemtype": "method",
+            "name": "close",
+            "params": [
+                {
+                    "name": "nodeId",
+                    "description": "节点ID",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n$(selector).tree('close',nodeId);"
+            ],
+            "class": "$.ui.tree",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\validate.js",
+            "line": 44,
+            "description": "匹配规则配置项，默认配置有email,mobile,tel,qq,url,noBlank，可自定义覆盖默认\n\n配置项为一个数组，[正则|函数，验证错误的提示信息，是否可以为空（可选，用于一些需要验证的但不是必填项，true表示可以为空）]",
+            "itemtype": "property",
+            "name": "regexp",
+            "type": "{Object} {}",
+            "example": [
+                "\nregexp: {\n\tidcard: [/^\\d{17}[\\dxX]$/, '请输入正确的身份证号码']\n}"
+            ],
+            "class": "$.ui.validate",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\validate.js",
+            "line": 64,
+            "description": "验证出错添加的样式",
+            "itemtype": "property",
+            "name": "errClassName",
+            "type": "{String}",
+            "default": "'text-error'",
+            "class": "$.ui.validate",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\validate.js",
+            "line": 72,
+            "description": "提示信息的位置",
+            "itemtype": "property",
+            "name": "position",
+            "type": "{String}",
+            "default": "'top'",
+            "class": "$.ui.validate",
+            "namespace": "$.ui"
+        },
+        {
+            "file": "js\\validate.js",
+            "line": 128,
+            "description": "非form提交的时候，可以手动调用这个方法对整个表单来遍历一遍进行验证",
+            "itemtype": "method",
+            "name": "submit",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "example": [
+                "\n$(selector).validate('submit');"
+            ],
+            "class": "$.ui.validate",
+            "namespace": "$.ui"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "unknown tag: version",
+            "line": " js\\combobox.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " js\\downlayer.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " js\\fileupload.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " js\\formtips.js:1"
+        },
+        {
+            "message": "unknown tag: link",
+            "line": " js\\formtips.js:18"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " js\\page.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " js\\table.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " js\\textui.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " js\\tree.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " js\\validate.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\common.js:134"
+        },
+        {
+            "message": "Missing item type\n设置Cookies",
+            "line": " js\\cookie.js:2"
+        },
+        {
+            "message": "Missing item type\n读取Cookies",
+            "line": " js\\cookie.js:18"
+        },
+        {
+            "message": "Missing item type\n清除Cookies",
+            "line": " js\\cookie.js:37"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.all.js:13389"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.all.js:13390"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.all.js:13391"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.all.js:13594"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.all.js:13595"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.all.js:13596"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.all.js:13941"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.all.js:13942"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.all.js:13943"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.effect.js:684"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.effect.js:685"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.effect.js:686"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.effect.js:889"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.effect.js:890"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.effect.js:891"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.effect.js:1236"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.effect.js:1237"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js\\jquery.ui.effect.js:1238"
+        },
+        {
+            "message": "Missing item type\nGet the timezone offset as string from a date object (eg '+0530' for UTC+5.5)",
+            "line": " js\\jquery.ui.timepicker.js:1761"
+        },
+        {
+            "message": "Missing item type\nCalls `timepicker()` on the `startTime` and `endTime` elements, and configures them to\nenforce date range limits.\nn.b. The input value must be correctly formatted (reformatting is not supported)",
+            "line": " js\\jquery.ui.timepicker.js:1773"
+        },
+        {
+            "message": "Missing item type\nCalls `datetimepicker` on the `startTime` and `endTime` elements, and configures them to\nenforce date range limits.",
+            "line": " js\\jquery.ui.timepicker.js:1786"
+        },
+        {
+            "message": "Missing item type\nCalls `method` on the `startTime` and `endTime` elements, and configures them to\nenforce date range limits.",
+            "line": " js\\jquery.ui.timepicker.js:1800"
+        },
+        {
+            "message": "Missing item type\nCalls `method` on the `startTime` and `endTime` elements, and configures them to\nenforce date range limits.",
+            "line": " js\\jquery.ui.timepicker.js:1815"
+        }
+    ]
+}

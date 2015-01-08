@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: downlayer.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: downlayer.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/**
+ * 下拉层，主要是用于需要点击下拉层，点击其他地方隐藏层
+ * @fileOverview 
+ * @namespace   ui.downlayer
+ * @version     1.1
+ * @author      derrickliu
+ */
+(function($){
+	$.widget('ui.downlayer',{
+		version: '1.1',
+		
+		options: {
+			/**
+			 * 目标层，点击后显示的层，值是string类型的选择器(selector)，比如target: '#dropHelpBox'
+			 * @name ui.downlayer#target
+			 * @type {String}
+			 * @default ''
+			 * @example
+			 * $(selector).downlayer({
+			 * target: '#dropHelpBox'
+			 * });
+			 * @example
+			 * $(selector).downlayer('option','target','#dropHelpBox');
+			 */
+			target: '',
+			/**
+			 * 下拉层显示后，给点击的目标dom对象增加一个css类
+			 * @name ui.downlayer#tgClass
+			 * @type {String}
+			 * @default 'droped'
+			 */
+			tgClass: 'droped',
+			/**
+			 * 偏移量控制
+			 * @name ui.downlayer#margin
+			 * @type {Object}
+			 * @default {l: 0, r: 0, b: 0, t: 0}
+			 */
+			margin: {l: 0, r: 0, b: 0, t: 0},
+			/**
+			 * 是否相对于当前document偏移
+			 * @name ui.downlayer#offset
+			 * @type {Boolean}
+			 * @default true
+			 */
+			offset: true,
+			/**
+			 * 相对显示位置
+			 * @name ui.downlayer#position
+			 * @type {String}
+			 * @default 'b'
+			 */
+			position: 'b',
+			/**
+			 * 触发的事件类型，支持click、hover
+			 * @name ui.downlayer#eventType
+			 * @type {String}
+			 * @default 'click'
+			 */
+			eventType: 'click',
+
+			/**
+			 * 是否立即触发
+			 * @name ui.downlayer#isFire
+			 * @type {Boolean}
+			 * @default false
+			 */
+			isFire: false,
+			
+			//callback
+			/**
+			 * 显示下拉层之前触发的回调
+			 * 
+			 * @callback ui.downlayer#beforeShow
+			 * @param {Event} event jQuery event Object
+			 * @example
+			 * $(selector).downlayer({ 
+			 * 	beforeShow: function(event){
+			 * 		//code
+			 * 	} 
+			 * });
+			 * @example
+			 * $(selector).accrodion('option', 'beforeShow', function(event){});
+			 */
+			beforeShow: null,
+			/**
+			 * 显示下拉层之后触发的回调
+			 * 
+			 * @callback ui.downlayer#afterShow
+			 * @param {Event} event jQuery event Object
+			 * @example
+			 * $(selector).downlayer({ 
+			 * 	afterShow: function(event){
+			 * 		//code
+			 * 	} 
+			 * });
+			 * @example
+			 * $(selector).accrodion('option', 'afterShow', function(event){});
+			 */
+			afterShow: null,
+			/**
+			 * 隐藏下拉层之前触发的回调
+			 * 
+			 * @callback ui.downlayer#beforeHide
+			 * @param {Event} event jQuery event Object
+			 * @example
+			 * $(selector).downlayer({ 
+			 * 	beforeHide: function(event){
+			 * 		//code
+			 * 	} 
+			 * });
+			 * @example
+			 * $(selector).accrodion('option', 'beforeHide', function(event){});
+			 * */
+			beforeHide: null,
+			/**
+			 * 隐藏下拉层之后触发的回调
+			 * 
+			 * @callback ui.downlayer#afterHide
+			 * @param {Event} event jQuery event Object
+			 * @example
+			 * $(selector).downlayer({ 
+			 * 	afterHide: function(event){
+			 * 		//code
+			 * 	} 
+			 * });
+			 * @example
+			 * $(selector).accrodion('option', 'afterHide', function(event){});
+			 * */
+			afterHide: null
+		},
+		
+		_create: function(){
+			if (this.options.eventType == 'hover') {
+				this.element.live('mouseenter', $.proxy(this,'_show'));
+				this.element.live('mouseleave', $.proxy(this,'_hoverhide'));
+				$(this.options.target).die('mouseleave', $.proxy(this,'_targethide'));
+				$(this.options.target).live('mouseleave', $.proxy(this,'_targethide'));
+			}else{
+				this.element.live('click', $.proxy(this,'_show'));
+			}
+			if(this.options.isFire){
+				this.element.trigger('mouseenter');
+			}
+		},
+		
+		_init: $.noop,
+		
+		_show: function(){
+			// if($(this.options.target).is(':visible')) return;
+			if(this._trigger('beforeShow', null) === false) return;
+			var element = this.element,
+				margin = this.options.margin,
+				target = $(this.options.target),
+				offset = this.options.offset ? element.offset(): element.position(),
+				l,t;
+			switch(this.options.position){
+	            case 'b':
+	                l = offset.left + (element.outerWidth() - target.outerWidth()) / 2 + margin.l;
+	                t = offset.top + element.outerHeight() + margin.t;
+	                break;
+	            case 't':
+	            	l = offset.left + (element.outerWidth() - target.outerWidth()) / 2 + margin.l;
+	            	t = offset.top - element.outerHeight() + margin.t;
+	            	break;
+	            case 'r':
+	                l = offset.left + element.outerWidth() + margin.l;
+	                t = offset.top + margin.t;
+	                break;
+	            case 'l':
+	                l = offset.left - target.outerWidth() + margin.l;
+	                t = offset.top + margin.t;
+	                break;
+	        }
+			element.addClass(this.options.tgClass);
+			target.css({ left: l, top: t }).show();
+			
+			if (this.options.eventType != 'hover') {
+				this.tempNamespace = 'downlayer' + new Date().getTime();
+				this.document.bind('click.' + this.tempNamespace,$.proxy(this,'_docClick'));
+			}
+			this._trigger('afterShow', null);
+
+		},
+		
+		_hide: function(relatedTarget){
+			if(this._trigger('beforeHide', null,relatedTarget) === false) return;
+			this.element.removeClass(this.options.tgClass);
+			$(this.options.target).hide();
+			this.document.unbind('click.' + this.tempNamespace);
+			this._trigger('afterHide', null,relatedTarget);
+		},
+		
+		_docClick: function(e){
+			var t = $(e.target);
+			if(t.closest(this.element).length) {
+				$(this.options.target).show();
+				return;
+			}
+			this._hide(t);
+		},
+
+		_hoverhide: function(e){
+			var t = $(e.relatedTarget);
+			if (t.closest(this.options.target).length) {
+				return;
+			}
+			this._hide(t);
+		},
+
+		_targethide: function(e){
+			var t = $(e.relatedTarget);
+			if (t.closest(this.element).length) {
+				return;
+			}
+			this._hide(t);
+		}
+	});
+})(jQuery);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Namespaces</h3><ul><li><a href="ui.combobox.html">ui.combobox</a></li><li><a href="ui.downlayer.html">ui.downlayer</a></li><li><a href="ui.formtips.html">ui.formtips</a></li><li><a href="ui.page.html">ui.page</a></li><li><a href="ui.table.html">ui.table</a></li><li><a href="ui.textui.html">ui.textui</a></li><li><a href="ui.tree.html">ui.tree</a></li><li><a href="ui.validate.html">ui.validate</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a> on Fri Jan 17 2014 16:28:39 GMT+0800 (CST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

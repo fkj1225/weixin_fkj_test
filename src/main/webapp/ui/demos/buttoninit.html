@@ -1,0 +1,110 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>demo.validate - 后台模板</title>
+<link rel="stylesheet" href="../themes/base/min/jquery-ui.min.css" />
+<link rel="stylesheet" href="../themes/base/inner.css" />
+<link rel="stylesheet" href="../themes/base/combobox.css" />
+<link rel="stylesheet" href="demos.css" />
+
+<script src="../js/jquery.js"></script>
+<script src="../js/min/jquery.ui.all.min.js"></script>
+
+<script src="../js/combobox.js"></script>
+<script src="../js/textui.js"></script>
+<script src="../js/form.state.init.js"></script>
+<div class="demo">
+	<h3 class="tit">1、不带icon的button用法</h3>
+	<button class="ui-btn-dis">我是button</button>
+	<a href="" class="ui-btn-span">我是a</a>
+	<input type="button" class="ui-btn" value="我是input" />
+	<span class="ui-btn-span">我是span</span>
+	<div class="ui-btn">我是div</div>
+	<p class="desc">引用<code>form.state.init.js</code>，在标签上配上class为<code>ui-btn</code>即可，理论上可以用在任何标签上，但是一般用在button、a、input上面
+	<pre>
+		.ui-btn
+	</pre>
+</div>
+<script>
+	$('.ui-btn-dis').button({
+		disabled: true
+	});
+	$('.ui-btn-span').button();
+	$('.ui-btn-span').button('option','disabled',true);
+</script>
+<div class="demo">
+	<h3 class="tit">2、一些常用的带icon的button用法</h3>
+	<button class="ui-btn-search">search</button>
+	<button class="ui-btn-submit">submit</button>
+	<button class="ui-btn-refresh">refresh</button>
+	<button class="ui-btn-save">save</button>
+	<a href="" class="ui-btn-edit">我是a,编辑</a>
+	<a href="" class="ui-btn-newwin">我是a,新开窗口</a>
+	<button class="ui-btn-import">导入</button>
+	<button class="ui-btn-export">导出</button>
+	<button class="ui-btn-del">删除</button>
+	<button class="ui-btn-back">返回</button>
+	<button class="ui-btn-site">设置</button>
+	<button class="ui-btn-close">关闭</button>
+	<p class="desc">在标签上配上对应的class，要注意的是：input标签上不能配置带icon，因为input不是闭合标签
+	<pre>
+		.ui-btn-search 搜索
+		.ui-btn-submit 提交
+		.ui-btn-refresh 刷新、重置
+		.ui-btn-save 保存
+		.ui-btn-edit 编辑
+		.ui-btn-newwin 新开窗口
+		.ui-btn-import 导入
+		.ui-btn-export  导出
+		.ui-btn-del 删除
+		.ui-btn-back 返回
+		.ui-btn-site 设置
+		.ui-btn-close 关闭
+	</pre>
+</div>
+
+<div class="demo">
+	<h3 class="tit">3、文本框的ui初始化</h3>
+	<input type="text" class="text" placeholder="我是个text"><br><br>
+	<textarea rows="10" cols="100" class="text" placeholder="我是个textarea"></textarea>
+	<p class="desc">在标签上配上对应的class为<code>text</code>即可
+	<pre>
+		.text
+	</pre>
+</div>
+
+<div class="demo">
+	<h3 class="tit">4、select的UI初始化，带自动完成功能</h3>
+	<div>
+		<label for="select1">Your preferred programming language：</label>
+		<select name="select1" class="ui-select" >
+			<option value="">Select one...</option>
+			<option value="ActionScript">ActionScript</option>
+			<option value="AppleScript">AppleScript</option>
+			<option value="Asp">Asp</option>
+			<option value="BASIC">BASIC</option>
+			<option value="C">C</option>
+			<option value="C++">C++</option>
+			<option value="Clojure">Clojure</option>
+			<option value="COBOL">COBOL</option>
+			<option value="ColdFusion">ColdFusion</option>
+			<option value="Erlang">Erlang</option>
+			<option value="Fortran">Fortran</option>
+			<option value="Groovy">Groovy</option>
+			<option value="Haskell">Haskell</option>
+			<option value="Java">Java</option>
+			<option value="JavaScript">JavaScript</option>
+			<option value="Lisp">Lisp</option>
+			<option value="Perl">Perl</option>
+			<option value="PHP">PHP</option>
+			<option value="Python">Python</option>
+			<option value="Ruby">Ruby</option>
+			<option value="Scala">Scala</option>
+			<option value="Scheme">Scheme</option>
+		</select>
+	</div>
+	<p class="desc">在标签上配上class为<code>ui-select</code>即可
+	<pre>
+		.ui-select
+	</pre>
+	
+</div>

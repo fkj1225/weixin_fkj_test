@@ -1,0 +1,386 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>demo.table - 后台模板</title>
+<link rel="stylesheet" href="../themes/base/min/jquery-ui.min.css" />
+<link rel="stylesheet" href="../themes/base/inner.css" />
+<link rel="stylesheet" href="../themes/base/table.css" />
+<link rel="stylesheet" href="../themes/base/page.css" />
+<link rel="stylesheet" href="demos.css" />
+<script src="../js/jquery.js"></script>
+<script src="../js/min/jquery.ui.all.min.js"></script>
+<script src="../js/json2.js"></script>
+<script src="../js/localStorage.js"></script>
+<script src="../js/handlebars.js"></script>
+<script src="../js/page.js"></script>
+<script src="../js/table.js"></script>
+
+<script src="../js/textui.js"></script>
+<script src="../js/form.state.init.js"></script>
+<script src="../js/common.js"></script>
+<div class="demo">
+	<h3 class="tit">1、table的内容为jsp直出</h3>
+	<div class="table-bar clrfix ui-widget-header">
+		<div class="fl btns-bar">
+			<input type="button" class="ui-btn" value="删 除" id="table1-btn-delete" />
+			<input type="button" class="ui-btn" value="查看" />
+		</div>
+		<div class="fr page-bar" id="page11"></div>
+	</div>
+	<table class="table" id="table1">
+		<thead class="ui-state-default">
+			<tr>
+				<th width="30"><input type="checkbox"></th>
+				<th width="200">列1</th>
+				<th>列2</th>
+				<th><a name="c" class="sort" href="">列3<span class="oi"></span></a></th>
+				<th>列4</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input type="checkbox"></td>
+				<td>a-0</td>
+				<td>b-0</td>
+				<td>c-0</td>
+				<td><a href="" name="a">编辑</a></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"></td>
+				<td>a-1</td>
+				<td>b-1</td>
+				<td>c-1</td>
+				<td><a href="" name="b">编辑</a></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"></td>
+				<td>a-2</td>
+				<td>b-2</td>
+				<td>c-2</td>
+				<td><a href="" name="c">编辑</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<p class="desc">页面直出
+	<p class="desc">1、支持多选，需要在直出的页面上带上checkbox，然后在js配置项里面配置上hashCheckbox: true
+	<p class="desc">2、支持排序，在需要支持排序的列上配置对应的html代码，看例子的列3，然后再js配置项里面配置上sortEnd回调。
+	<p class="desc">3、支持翻页，看例子代码
+	<p class="desc">4、支持各种回调事件，只是不会返回当前行的数据
+	<p class="desc">注意：有关行的一些点击操作，比如例子里面的“编辑”，建议放到自带的回调里面去做，这样就不需要在标签上额外绑定onclick之类的方法了
+	<pre>
+		$('#table1').table({
+			hasCheckbox: true,
+			sortEnd: function(event,sortParams){
+				// sortParams = {
+				// 	sortBy: '排序的名称',
+				// 	order: '排序的方式',
+				// 	pageNo: 1
+				// }
+				//在这里做你自己的事情
+			},
+			click: function(event){
+				var target = $(event.originalEvent.target);
+				if(target.is('a')){
+					event.preventDefault();
+					alert(target.attr('name'));
+					return false;
+				}
+				return true;
+			}
+		});
+
+		//翻页需要自己绑定
+		$('#page11').page({
+			pageNo: 1,
+			pageSize: 50,
+			pageTotal: 200,
+			pageCount: 4,
+			jump: function(event,pageParams){
+				//pageParams为翻页相关事件动作返回的pageNo和pageSize
+				//在这里做你自己的事情
+				alert('pageNo:' + pageParams.pageNo + '; pageSize:' + pageParams.pageSize)
+			}
+		}).page('update');
+	</pre>
+	<script>
+		$('#table1').table({
+			hasCheckbox: true,
+			sortEnd: function(event,sortParams){
+				// sortParams = {
+				// 	sortBy: '排序的名称',
+				// 	order: '排序的方式',
+				// 	pageNo: 1
+				// }
+				//在这里做你自己的事情
+				alert("sortBy=" + sortParams.sortBy + ",order=" + sortParams.order + ",pageNo=" + sortParams.pageNo);
+			},
+			click: function(event){
+				var target = $(event.originalEvent.target);
+				if(target.is('a')){
+					event.preventDefault();
+					alert(target.attr('name'));
+					return false;
+				}
+				return true;
+			}
+		});
+
+		//翻页需要自己绑定
+		$('#page11').page({
+			pageNo: 1,
+			pageSize: 50,
+			pageTotal: 200,
+			pageCount: 4,
+			jump: function(event,pageParams){
+				//pageParams为翻页相关事件动作返回的pageNo和pageSize
+				//在这里做你自己的事情
+				alert('pageNo:' + pageParams.pageNo + '; pageSize:' + pageParams.pageSize)
+			}
+		}).page('update');
+	</script>
+</div>
+
+<div class="demo">
+	<h3 class="tit">2、table的内容为页面直出的json数据</h3>
+	<table class="table" id="table2">
+	</table>
+	<p class="desc">必须配置<code>head</code>、<code>data</code>两个配置项。
+	<p class="desc"><code>head</code>为配置table的头部，<code>head</code>是一个数组，每个项把需要显示的数据对应配上即可，name(string)为字段名称，text(string)为列的文本，可以为列设置width(number)，还可以设置排序sort(boolean)
+	<pre>
+		//构造数据
+		var list = [];
+		for(var i = 0; i < 10; i++){
+			list[i] = {
+				'rowid': i,
+				'a': 'a-' + i,
+				'b': 'b-' + i,
+				'c': 'c-' + i,
+				'd': 'd-' + i
+			};
+		}
+		//构造数据结束
+		var options = {
+				head: [
+				       {name: 'a', text: '列1', width: 200},
+				       {name: 'b', text: '列2'},
+				       {name: 'c', text: '列3'},
+				       {name: 'd', text: '列4'}
+				       ],
+			     data: {
+					list: list
+				}
+			};
+		$('#table2').table(options);
+	</pre>
+	<script>
+		(function(){
+			//构造数据
+			var list = [];
+			for(var i = 0; i < 10; i++){
+				list[i] = {
+					'rowid': i,
+					'a': 'a-' + i,
+					'b': 'b-' + i,
+					'c': 'c-' + i,
+					'd': 'd-' + i,
+					'e': 'e-' + i,
+					'f': 'f-' + i
+				};
+			}
+			//构造数据结束
+			var options = {
+					idAttribute: 'rowid',
+					head: [
+					       {name: 'a', text: '列a', width: 200},
+					       {name: 'b', text: '列b'},
+					       {name: 'c', text: '列c'},
+					       {name: 'd', text: '列d', show: false},
+					       {name: 'e', text: '列e', show: false},
+					       {name: 'f', text: '列f', show: false}
+					       ],
+				     data: {
+						list: list
+					}
+				};
+			$('#table2').table(options);
+			
+		})();
+	</script>
+</div>
+
+<div class="demo">
+	<h3 class="tit">3、带翻页、带checkbox、带行号、可以排序，带双击回调</h3>
+	<div class="table-bar clrfix ui-widget-header">
+		<div class="fl btns-bar">
+			<input type="button" class="ui-btn" value="删 除" id="btn-delete" />
+			<input type="button" class="ui-btn" value="查看" />
+		</div>
+		<div class="fr page-bar" id="page31"></div>
+	</div>
+	<table id="table3" class="table"></table>
+	<div class="table-bar clrfix ui-widget-header">
+		<div class="fr page-bar" id="page32"></div>
+	</div>
+	<p class="desc">行号、带checkbox设置比较简单，看例子
+	<p class="desc">带翻页需要在html写上对应的标签，然后在配置里面用<code>page</code>关联，类型是jquery的selector格式
+	<p class="desc">排序有两种方式设置，
+	<p class="desc">1、在全局的配置里面配上<code>sort：true</code>，即可为所有列增加排序功能，如果有些列不需要排序，可以设置在head里面对应的列设置<code>sort: false</code>（适合列很多，大部分需要排序的情况）
+	<p class="desc">2、直接在head对应的列设置<code>sort: true</code>，无须在全局的配置里面设置。（适合少部分列需要排序的情况）
+	<p class="desc">更多的属性配置参考文档
+	<pre>
+		//构造数据
+		var list = [];
+		for(var i = 0; i < 110; i++){
+			list[i] = {
+				'rowid': i,
+				'a': 'a-' + i,
+				'b': 'b-' + i,
+				'c': 'c-' + i,
+				'd': 'd-' + i
+			};
+		}
+		//构造数据结束
+		var options = {
+				idAttribute: 'rowid',
+				hasCheckbox: true,
+				hasRowNumbers: true,
+				sort: true,
+				head: [
+				       {name: 'a', text: '列1', width: 200,sort: false},
+						{name: 'b', text: '列2', tmpl: '&lt;a href=""&gt;{{b}}&lt;/a&gt;'},
+						{name: 'c', text: '列3', tmpl: '{{{xxoo this}}}'},
+						{name: 'd', text: '列4',sort: false}
+				       ],
+			     data: {
+					list: list,
+					pageNo: 1, 
+				   	pageSize: 5,
+				   	pageTotal: 110,
+				   	pageCount: 110 / 5 //pageTotal / pageSize
+				},
+				page: '#page31,#page32'
+			};
+		//注册一个helpers，返回的rowData表示当前行的数据
+		Handlebars.registerHelper('xxoo', function(rowData) {
+			if(rowData.rowid % 2 === 0) {
+				return 'xx';
+			}else{
+				return 'oo';
+			}
+		});
+		$('#table3').table(options);
+	</pre>
+	<script>
+		(function(){
+			//构造数据
+			var list = [];
+			for(var i = 0; i < 110; i++){
+				list[i] = {
+					'rowid': i,
+					'a': 'a-' + i,
+					'b': 'b-' + i,
+					'c': 'c-' + i,
+					'd': 'd-' + i
+				};
+			}
+			//构造数据结束
+			var options = {
+					idAttribute: 'rowid',
+					hasCheckbox: true,
+					hasRowNumbers: true,
+					sort: true,
+					head: [
+						{name: 'a', text: '列1', width: 200,sort: false},
+						{name: 'b', text: '列2', tmpl: '<a href="">{{b}}</a>'},
+						{name: 'c', text: '列3', tmpl: '<a href="">{{xxoo this}}</a>'},
+						{name: 'd', text: '列4',sort: false}
+			       	],
+				     data: {
+						list: list,
+						pageNo: 1, 
+					   	pageSize: 5,
+					   	pageTotal: 110,
+					   	pageCount: 110 / 5 //pageTotal / pageSize
+					},
+					page: '#page31,#page32',
+					dblclick: function(event, rowData){
+						alert('行id=' + rowData.rowid);
+					}
+				};
+
+			//注册一个helpers，返回的rowData表示当前行的数据
+			Handlebars.registerHelper('xxoo', function(rowData) {
+				if(rowData.rowid % 2 === 0) {
+					return 'xx';
+				}else{
+					return 'oo';
+				}
+			});
+			$('#table3').table(options);
+			
+			$('#btn-delete').click(function(){
+				var arrs = $('#table3').table('getChecked');
+				if(!arrs.length) return alert('请选择要删除的行');
+				alert('是否删除选择的' + arrs.length + '行');
+			});
+
+			
+		})();
+	</script>
+</div>
+
+<div class="demo">
+	<h3 class="tit">3、ajax获取数据</h3>
+	<div class="table-bar clrfix ui-widget-header">
+		<div class="fl btns-bar">
+			<input type="button" class="ui-btn" value="删 除" />
+			<input type="button" class="ui-btn" value="查看" />
+		</div>
+		<div class="fr page-bar"></div>
+	</div>
+	<table id="table4" class="table"></table>
+	<div class="table-bar clrfix ui-widget-header">
+		<div class="fr page-bar"></div>
+	</div>
+	<p class="desc">设置<code>url</code>
+	<pre>
+		var options = {
+				idAttribute: 'rowid',
+				hasCheckbox: true,
+				hasRowNumbers: true,
+				sort: true,
+				head: [
+				       {name: 'a', text: '列1', width: 200,sort: false},
+				       {name: 'b', text: '列2'},
+				       {name: 'c', text: '列3'},
+				       {name: 'd', text: '列4',sort: false}
+				       ],
+			    url: 'http://m.qq.com',
+				page: '.page-bar'
+			};
+		$('#table4').table(options);
+	</pre>
+	<script>
+		(function(){
+			var options = {
+					idAttribute: 'rowid',
+					hasCheckbox: true,
+					hasRowNumbers: true,
+					sort: true,
+					head: [
+					       {name: 'a', text: '列1', width: 200,sort: false},
+					       {name: 'b', text: '列2'},
+					       {name: 'c', text: '列3'},
+					       {name: 'd', text: '列4',sort: false}
+					       ],
+			       url: 'http://m.qq.com',
+			       // page: '.page-bar',
+				   dblclick: function(event, rowData){
+						alert('行id=' + rowData.rowid);
+				   }
+				};
+			// $('#table4').table(options);
+			
+			
+		})();
+	</script>
+</div>

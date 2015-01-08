@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: combobox.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: combobox.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/**
+ * combobox，主要是用于select ui初始化
+ * @fileOverview 
+ * @namespace   ui.combobox
+ * @version     1.1
+ * @author      derrickliu
+ */
+(function( $ ) {
+	$.widget( "ui.combobox", {
+		options: {
+			readonly: false,
+
+			//callbacks
+
+			/**
+			 * 更改选项的时候触发
+			 * 
+			 * @callback ui.combobox#change
+			 * @param {Event} event jQuery event Object
+			 * @param {Dom} option dom Object
+			 * @example
+			 * $(selector).combobox({ 
+			 * 	change: function(event, option){
+			 * 		//code
+			 * 	} 
+			 * });
+			 */
+			change: null,
+
+			/**
+			 * 选择选项的时候触发
+			 * 
+			 * @callback ui.combobox#select
+			 * @param {Event} event jQuery event Object
+			 * @param {Dom} option dom Object
+			 * @example
+			 * $(selector).combobox({ 
+			 * 	select: function(event, option){
+			 * 		//code
+			 * 	} 
+			 * });
+			 */
+			select: null
+		},
+		_create: function() {
+			this.wrapper = $( "&lt;span>" )
+				.addClass( "ui-combobox" )
+				.insertAfter( this.element );
+
+			this.element.hide();
+			this._createAutocomplete();
+			this._createShowAllButton();
+		},
+
+		_createAutocomplete: function() {
+			var selected = this.element.children( ":selected" ),
+				value = selected.val() ? selected.text() : "";
+
+			this.input = $( "&lt;input>" )
+				.appendTo( this.wrapper )
+				.val( value )
+				.attr( "title", "" )
+				.addClass( "ui-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+				.attr('readonly',this.options.readonly);
+				
+			this.input.autocomplete({
+					delay: 0,
+					minLength: 0,
+					source: $.proxy( this, "_source" ),
+					position: {
+						collision: 'flipfit'
+					}
+				})
+				.tooltip({
+					tooltipClass: "ui-state-highlight"
+				});
+
+			this._on( this.input, {
+				autocompleteselect: function( event, ui ) {
+					if(ui.item.option.selected !== true){
+						ui.item.option.selected = true;
+
+						//触发绑定在select上onchange事件，不建议直接在select上面绑定change事件
+						this.element.trigger('change');
+
+						//触发自定义的回调change事件
+						this._trigger( "change", event, {
+							item: ui.item.option
+						});
+					}
+					this._trigger( "select", event, {
+						item: ui.item.option
+					});
+				},
+
+				autocompletechange: "_removeIfInvalid"
+			});
+		},
+
+		_createShowAllButton: function() {
+			var input = this.input,
+				wasOpen = false;
+
+			$( "&lt;a>" )
+				.attr( "tabIndex", -1 )
+				// .attr( "title", "Show All Items" )
+				// .tooltip()
+				.appendTo( this.wrapper )
+				.button({
+					icons: {
+						primary: "ui-icon-triangle-1-s"
+					},
+					text: false
+				})
+				.removeClass( "ui-corner-all" )
+				.addClass( "ui-combobox-toggle ui-corner-right" )
+				.mousedown(function() {
+					wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+				})
+				.click(function() {
+					$(this).blur();
+					input.focus();
+
+					// Close if already visible
+					if ( wasOpen ) {
+						return;
+					}
+
+					// Pass empty string as value to search for, displaying all results
+					input.autocomplete( "search", "" );
+				});
+		},
+
+		_source: function( request, response ) {
+			var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+			response( this.element.children( "option" ).map(function() {
+				var text = $( this ).text();
+				if ( this.value && ( !request.term || matcher.test(text) ) )
+					return {
+						label: text,
+						value: text,
+						option: this
+					};
+			}) );
+		},
+
+		_removeIfInvalid: function( event, ui ) {
+
+			// Selected an item, nothing to do
+			if ( ui.item ) {
+				
+				return;
+			}
+
+			// Search for a match (case-insensitive)
+			var value = this.input.val(),
+				valueLowerCase = value.toLowerCase(),
+				optionItem = null,
+				valid = false;
+			this.element.children( "option" ).each(function() {
+				if ( $( this ).text().toLowerCase() === valueLowerCase ) {
+					this.selected = valid = true;
+					optionItem = this;
+					return false;
+				}
+			});
+
+			// Found a match, nothing to do
+			if ( valid ) {
+				//触发绑定在select上onchange事件，不建议直接在select上面绑定change事件
+				this.element.trigger('change');
+
+				//触发自定义的回调change事件
+				this._trigger( "change", event, {
+					item: optionItem
+				});
+				return;
+			}
+
+			// Remove invalid value
+			this.input
+				.val( "" )
+				.attr( "title", "没有 " + value + " 的选项" )
+				.tooltip( "open" );
+			this.element.val( "" );
+			this._delay(function() {
+				this.input.tooltip( "close" ).attr( "title", "" );
+			}, 2500 );
+			this.input.data( "ui-autocomplete" ).term = "";
+		},
+
+		_destroy: function() {
+			this.wrapper.remove();
+			this.element.show();
+		},
+		/**
+		 * 设置当前选中项，可以通过value设置，也可以通过text设置
+		 * @name ui.combobox#select
+		 * @function
+		 * @param {Object} options {value: 'option的value'}
+		 * @example
+		 * $(selector).combobox('select', { text: 'option的文本'});
+		 */
+		select: function(options){
+			var self = this,
+				key = 'text',
+				value = options.text;
+			if('value' in options){
+				key = 'val';
+				value = options.value;
+			}
+
+			this.element.children( "option" ).each(function() {
+				if ( $( this )[key]() === value ) {
+					this.selected = true;
+					self.input.val($(this).text());
+					return false;
+				}
+			});
+			
+		}
+	});
+})( jQuery );</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Namespaces</h3><ul><li><a href="ui.combobox.html">ui.combobox</a></li><li><a href="ui.downlayer.html">ui.downlayer</a></li><li><a href="ui.formtips.html">ui.formtips</a></li><li><a href="ui.page.html">ui.page</a></li><li><a href="ui.table.html">ui.table</a></li><li><a href="ui.textui.html">ui.textui</a></li><li><a href="ui.tree.html">ui.tree</a></li><li><a href="ui.validate.html">ui.validate</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a> on Fri Jan 17 2014 16:28:39 GMT+0800 (CST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

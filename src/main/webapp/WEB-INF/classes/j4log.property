@@ -1,0 +1,3 @@
+j4log.version=2
+j4log.root=${server.root}/log/webapp_autogen_spring
+_j4log = info, ${server.root}/log/webapp_autogen_spring/_j4log.log

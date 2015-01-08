@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>js\page.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="..\..\logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/$.ui.combobox.html">$.ui.combobox</a></li>
+            
+                <li><a href="../classes/$.ui.downlayer.html">$.ui.downlayer</a></li>
+            
+                <li><a href="../classes/$.ui.fileupload.html">$.ui.fileupload</a></li>
+            
+                <li><a href="../classes/$.ui.formtips.html">$.ui.formtips</a></li>
+            
+                <li><a href="../classes/$.ui.page.html">$.ui.page</a></li>
+            
+                <li><a href="../classes/$.ui.table.html">$.ui.table</a></li>
+            
+                <li><a href="../classes/$.ui.textui.html">$.ui.textui</a></li>
+            
+                <li><a href="../classes/$.ui.tree.html">$.ui.tree</a></li>
+            
+                <li><a href="../classes/$.ui.validate.html">$.ui.validate</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: js\page.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * 翻页插件
+ * 
+ * @namespace 	$.ui
+ * @class page
+ * @extends		$.widget
+ * @author      derrickliu
+ * @version     1.1
+ * @example
+ * $(selector).page({
+ * 	pageNo: 1,
+ * 	pageSize: 100,
+ * 	pageTotal: 1000,
+ * 	pageCount: 10	//pageTotal / pageSize
+ * 	//点击翻页、跳转的回调
+ * 	jump: function(event,options){}
+ * });
+ */
+(function($){
+	$.widget(&#x27;ui.page&#x27;,{
+		version: &#x27;1.1&#x27;,
+		options: {
+			/**
+			 * 当前页码
+			 * 
+			 * @property pageNo
+			 * @type {Number} 
+			 * */
+			pageNo: 0,
+			/**
+			 * 每页显示的列表数
+			 * 
+			 * @property pageSize
+			 * @type {Number} 
+			 * */
+			pageSize: 0,
+			/**
+			 * 总的列表数
+			 * 
+			 * @property pageTotal
+			 * @type {Number} 
+			 * */
+			pageTotal: 0,
+			/**
+			 * 总页数，总的列表数 / 每页显示的列表数
+			 * 
+			 * @property pageCount
+			 * @type {Number} 
+			 * */
+			pageCount: 0,
+	    	
+	    	//callbacks
+			/**
+			 * 点击翻页、跳转的回调
+			 * 
+			 * @event jump
+			 * @param {Event} event jQuery event Object
+			 * @param {Object} options {pageNo: 2, pageSize: 100}
+			 * @example
+			 * $(selector).accrodion({ 
+			 * 	click: function(event,options){
+			 * 		//code
+			 * 	} 
+			 * });
+			 */
+	    	jump: null
+		},
+		_create: function(){
+			this._createPageBar();
+			// this.update();
+			
+			this.element
+				.delegate(&#x27;a&#x27;, &#x27;click&#x27;, $.proxy(this, &#x27;_pageBtnClick&#x27;))
+				.delegate(&#x27;:text&#x27;, {
+					&#x27;keypress&#x27;: $.proxy(this, &#x27;_keypressFilter&#x27;),
+					&#x27;keyup&#x27;: $.proxy(this, &#x27;_pageTextJump&#x27;)
+				});
+		},
+		_init: $.noop,
+		
+		/**
+		 * 更新翻页的表现
+		 * 
+		 * @method update
+		 * @example
+		 * 显示第一项
+		 * $(selector).page(&#x27;update&#x27;);
+		 */
+		update: function(){
+			var firstStatus = false,
+				prevStatus = false,
+				nextStatus = false,
+				lastStatus = false;
+		
+			if(this.options.pageNo == 1){
+				firstStatus = prevStatus = true;
+				
+			}
+			if(this.options.pageNo == this.options.pageCount){
+				nextStatus = lastStatus = true;
+			}
+
+			this._first.button({
+				disabled: firstStatus
+			});
+			this._prev.button({
+				disabled: prevStatus
+			});
+
+			this._next.button({
+				disabled: nextStatus
+			});
+			this._last.button({
+				disabled: lastStatus
+			});
+
+			this._total.text(&#x27;共&#x27; + this.options.pageTotal + &#x27;条&#x27;);
+			this._countBar
+				.find(&#x27;.page-count-text&#x27;).val(this.options.pageNo)
+				.end()
+				.find(&#x27;.page-count&#x27;).text(this.options.pageCount);
+			this._sizeBar.find(&#x27;.page-size-text&#x27;).val(this.options.pageSize);
+		},
+
+		_createPageBar: function(){
+			this._total = $(&#x27;&lt;span&gt;&#x27;).addClass(&#x27;page-total&#x27;);
+			this._first = $(&#x27;&lt;a&gt;&#x27;).addClass(&#x27;page-first&#x27;).text(&#x27;第一页&#x27;);
+			this._prev = $(&#x27;&lt;a&gt;&#x27;).addClass(&#x27;page-prev&#x27;).text(&#x27;上一页&#x27;);
+			this._countBar = 
+					$(&#x27;&lt;span&gt;&#x27;)
+					.addClass(&#x27;page-count-bar&#x27;)
+					.html(&#x27;第&lt;input type=&quot;text&quot; class=&quot;text page-count-text&quot; value=&quot;1&quot; title=&quot;按回车键跳转&quot; /&gt; /&lt;span class=&quot;page-count&quot;&gt;1&lt;/span&gt;页&#x27;);
+			this._next = $(&#x27;&lt;a&gt;&#x27;).addClass(&#x27;page-next&#x27;).text(&#x27;下一页&#x27;);
+			this._last = $(&#x27;&lt;a&gt;&#x27;).addClass(&#x27;page-last&#x27;).text(&#x27;最后一页&#x27;);
+			this._sizeBar = 
+					$(&#x27;&lt;span&gt;&#x27;)
+					.addClass(&#x27;page-size-bar&#x27;)
+					.html(&#x27;&lt;input type=&quot;text&quot; class=&quot;text page-size-text&quot; value=&quot;0&quot; title=&quot;按回车键跳转&quot; /&gt; 条/页&#x27;);
+			this.element
+				.append(this._total)
+				.append(this._first)
+				.append(this._prev)
+				.append(this._countBar)
+				.append(this._next)
+				.append(this._last)
+				.append(this._sizeBar);
+			this._countBar
+				.find(&#x27;.page-count-text&#x27;).textui();
+			this._sizeBar.find(&#x27;.page-size-text&#x27;).textui();
+			this._first.button({
+				text: false,
+				icons: {
+					primary: &#x27;ui-icon-seek-first&#x27;
+				}
+			});
+			this._prev.button({
+				text: false,
+				icons: {
+					primary: &#x27;ui-icon-seek-prev&#x27;
+				}
+			});
+			this._next.button({
+				text: false,
+				icons: {
+					primary: &#x27;ui-icon-seek-next&#x27;
+				}
+			});
+			this._last.button({
+				text: false,
+				icons: {
+					primary: &#x27;ui-icon-seek-end&#x27;
+				}
+			});
+		},
+		
+		_jump: function(){
+			var o = this.options;
+			if(o.pageNo &gt; o.pageCount) o.pageNo = o.pageCount;
+			else if(o.pageNo &lt; 1) o.pageNo = 1;
+			
+			this._trigger(&#x27;jump&#x27;, null, {pageNo: o.pageNo, pageSize: o.pageSize});
+		},
+		
+		_pageBtnClick: function(e){
+			var t = $(e.currentTarget),
+				className = /(page-\w{4,5})/.exec(t.attr(&#x27;class&#x27;))[1],
+				o = this.options;
+			switch(className){
+			case &#x27;page-next&#x27;:
+				o.pageNo++;
+				break;
+			case &#x27;page-prev&#x27;:
+				o.pageNo--;
+				break;
+			case &#x27;page-first&#x27;:
+				o.pageNo = 1;
+				break;
+			case &#x27;page-last&#x27;:
+				o.pageNo = o.pageCount;
+				break;
+			}
+			this._jump();
+			return false;
+		},
+		
+		_keypressFilter: function(e){
+			if(!/^\d+$/.test(String.fromCharCode(e.charCode)) &amp;&amp; e.charCode &gt; 9 &amp;&amp; !e.ctrlKey){
+				e.preventDefault();
+			}
+		},
+		
+		_pageTextJump: function(e){
+			var t = $(e.currentTarget),
+				value = t.val();
+			if(t.is(&#x27;.page-count-text&#x27;)){
+				this.options.pageNo = parseInt( value, 10 );
+			}else{
+				this.options.pageSize = parseInt( value, 10 );
+			}
+			if(e.keyCode == 13){
+				this._jump();
+			}
+		}
+	});
+})(jQuery);
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

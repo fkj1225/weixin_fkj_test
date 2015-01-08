@@ -1,0 +1,27 @@
+html,body,div,p,span,a,strong,form,table,th,td,ul,li,ol,dl,dt,dd,h1,h2,h3,h4,h5,h6,fieldset,iframe,object,pre,img,b,i{border: 0 none; margin: 0; outline: 0 none; padding: 0;}
+ul,ol,li{ list-style: none;}
+table{border-spacing: 0; border-collapse: collapse;}
+fieldset,img { border: 0 none;}
+h1, h2, h3, h4, h5, h6 {font-size: 100%;}
+body, table, input, textarea, button, select {font: 12px "\5FAE\8F6F\96C5\9ED1";}
+body{ background: #fff; padding: 15px;}
+.demo{ margin-bottom: 30px; width: 96%;}
+
+.tit{ font-size: 16px; margin-bottom: 20px;}
+
+.demo .desc{ font-size: 14px; line-height: 22px; margin: 15px 0; color: #666;}
+
+.desc code{ margin: 0 5px; color: #000; font-style: italic;}
+
+pre{ border: 1px solid #ddd; width: 80%; padding-left: 10px; border-left-width: 5px; margin-top: 15px; line-height: 22px; color: #4d4d4c;}
+
+.overflow-tips-one-line{
+	width: 200px;
+	height: 20px;
+	line-height: 20px;
+}
+.overflow-tips-multi-line{
+	width: 200px;
+	line-height: 20px;
+	height: 40px;
+}

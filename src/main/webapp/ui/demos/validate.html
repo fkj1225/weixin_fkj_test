@@ -1,0 +1,351 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>demo.validate - 后台模板</title>
+<link rel="stylesheet" href="../themes/base/min/jquery-ui.min.css" />
+<link rel="stylesheet" href="../themes/base/inner.css" />
+<link rel="stylesheet" href="../themes/base/combobox.css" />
+<link rel="stylesheet" href="../themes/base/form.list.css" />
+<link rel="stylesheet" href="../themes/base/validate.css" />
+<link rel="stylesheet" href="demos.css" />
+
+<script src="../js/jquery.js"></script>
+<script src="../js/min/jquery.ui.all.min.js"></script>
+<script src="../js/formtips.js"></script>
+<script src="../js/placeholder.js"></script>
+<script src="../js/validate.js"></script>
+<script src="../js/combobox.js"></script>
+<script src="../js/textui.js"></script>
+<script src="../js/form.state.init.js"></script>
+<script src="../js/common.js"></script>
+<div class="demo">
+	<h3 class="tit">1、用控件自带的规则</h3>
+	<form id="form1" class="form-box">
+		<h3 class="form-title">用控件自带的规则</h3>
+		<div>
+			<table class="form-list">
+				<tr>
+					<th>使用控件自带的规则：</th>
+					<td><input type="text" class="text w-90" placeholder="请输入电子邮件" name="dd" rules="email" /></td>
+					<th>验证非空：</th>
+					<td><textarea class="text w-90" placeholder="请输入简介" name="dd2" rules="noBlank"></textarea></td>
+				</tr>
+				<tr>
+					<th>combobox验证：</th>
+					<td colspan="3">
+						<select name="select1" class="ui-select" rules="noBlank">
+							<option value="">Select one...</option>
+							<option value="ActionScript">ActionScript</option>
+							<option value="AppleScript">AppleScript</option>
+							<option value="Asp">Asp</option>
+							<option value="BASIC">BASIC</option>
+							<option value="C">C</option>
+							<option value="C++">C++</option>
+							<option value="Clojure">Clojure</option>
+							<option value="COBOL">COBOL</option>
+							<option value="ColdFusion">ColdFusion</option>
+							<option value="Erlang">Erlang</option>
+							<option value="Fortran">Fortran</option>
+							<option value="Groovy">Groovy</option>
+							<option value="Haskell">Haskell</option>
+							<option value="Java">Java</option>
+							<option value="JavaScript">JavaScript</option>
+							<option value="Lisp">Lisp</option>
+							<option value="Perl">Perl</option>
+							<option value="PHP">PHP</option>
+							<option value="Python">Python</option>
+							<option value="Ruby">Ruby</option>
+							<option value="Scala">Scala</option>
+							<option value="Scheme">Scheme</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<button type="submit" class="ui-btn-submit common-search" >点击验证</button>
+		</div>
+	</form>
+	<p class="desc">使用validate包括html标签上的配置、js的调用和配置；标签上配置<code>rules</code>属性，目前自带的正则有：email/mobile/tel/qq/url/noBlank(不能为空)；这几个也有可能无法满足业务需求，可自定义覆盖。
+	<pre>
+		$('#form1').validate();
+		$('#form1').on('submit',function(e){
+			//e.preventDefault()是禁止form默认提交事件，如果后面的操作为非form提交需加上
+			e.preventDefault();
+			//验证成功
+			//做自己的业务
+		});
+	</pre>
+	<script>
+		// $('#form1').serializeObj();
+		$('#form1').validate({
+			position: 'top' //right,left,bottom,top
+		});
+		$('#form1').on('submit',function(e){
+			//e.preventDefault()是禁止form默认提交事件，如果后面的操作为非form提交需加上
+			e.preventDefault();
+			//验证成功
+			//做自己的业务
+		});
+
+	</script>
+</div>
+
+<div class="demo">
+	<h3 class="tit">2、自定义正则验证</h3>
+	<form id="form2">
+		<table class="form-list">
+			<tr>
+				<th>自定义正则验证：</th>
+				<td><input type="text" class="text w-90" placeholder="请输入18位身份证号码" rules="idcard" /></td>
+			</tr>
+		</table>
+		<button type="submit" class="ui-btn-submit" >点击验证</button>
+	</form>
+	<p class="desc">自定义验证的<code>rules</code>自己定义名称，对应上js配置即可
+	<pre>
+		$('#form2').validate({
+			regexp: {
+				idcard: [/^\d{17}[\dxX]$/, '请输入正确的身份证号码']
+			}
+		});
+	</pre>
+	<script>
+		$('#form2').validate({
+			regexp: {
+				idcard: [/^\d{17}[\dxX]$/, '请输入正确的身份证号码']
+			}
+		});
+	</script>
+</div>
+
+<div class="demo">
+	<h3 class="tit">3、自定义函数验证</h3>
+	<form id="form3">
+		<table class="form-list">
+			<tr>
+				<th>定义函数验证：</th>
+				<td><input type="text"  class="text w-90" placeholder="请输入12345" rules="fun1" /></td>
+				<th>复选框验证，必选：</th>
+				<td><label><input type="checkbox" name="mmm" rules="mianze" /> 免责申明</label></td>
+			</tr>
+		</table>
+		<button type="submit" class="ui-btn-submit" >点击验证</button>
+	</form>
+	<p class="desc">不好用正则去验证的可以用函数，用函数名替换正则即可，页面上需要有对应的函数
+	<pre>
+		$('#form3').validate({
+			regexp: {
+				fun1: [_fun1, '请输入12345'],
+				mianze: [mianze, '请阅读免责申明']
+			}
+		});
+		function _fun1(target){
+			var value = target.val();
+			if(value != '12345' )
+				return false;
+			return true;
+		}
+	
+		function mianze(target){
+			return target.is(':checked');
+		} 
+	</pre>
+	<script>
+		$('#form3').validate({
+			regexp: {
+				fun1: [_fun1, '请输入12345'],
+				mianze: [mianze, '请阅读免责申明']
+			}
+		});
+		function _fun1(target){
+			var value = target.val();
+			if(value != '12345' )
+				return false;
+			return true;
+		}
+	
+		function mianze(target){
+			return target.is(':checked');
+		} 
+	</script>
+</div>
+
+<div class="demo">
+	<h3 class="tit">4、验证select是否有选择</h3>
+	<form id="form4">
+		<table class="form-list">
+			<tr>
+				<th>验证select：</th>
+				<td>
+					<select rules="noBlank">
+						<!-- value置空 -->
+						<option value="">请选择手机系统</option>
+						<option value="1">IOS</option>
+						<option value="2">Android</option>
+						<option value="3">windows</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+		<button type="submit" class="ui-btn-submit" >点击验证</button>
+	</form>
+	<p class="desc">如果select的默认项是的value=“”；在select上配置rules=noBlank即可；由于noBlank是自带的控件，所以不用配置js，要注意的是默认项必须要设置value=“”；
+	<pre>
+		$('#form4').validate();
+	</pre>
+	<script>
+		$('#form4').validate();
+	</script>
+</div>
+
+<div class="demo">
+	<h3 class="tit">5、验证radio是否有选择</h3>
+	<form id="form5">
+		<table class="form-list">
+			<tr>
+				<th>你的性别：</th>
+				<td>
+					<label><input type="radio" name="xx" value="1" rules="sex" /> 男</label> 
+					<label><input type="radio" name="xx" value="0" /> 女</label> 
+					<label><input type="radio" name="xx" value="2" /> 其它</label>
+				</td>
+			</tr>
+		</table>
+		<button type="submit" class="ui-btn-submit" >点击验证</button>
+	</form>
+	<p class="desc">通常是在第一个radio上定一个rules，然后通过函数来验证
+	<pre>
+		$('#form5').validate({
+			regexp: {
+				sex: [_fun2, '请选择性别'],
+			}
+		});
+		
+		function _fun2(target){
+			var td = target.parent().parent(),
+				radios = td.find(':radio'),
+				chked = false;
+			radios.each(function(i,n){
+				if($(n).is(':checked')){
+					chked = true;
+					return false;
+				}
+			});
+			return chked;
+		}
+	</pre>
+	<script>
+		$('#form5').validate({
+			regexp: {
+				sex: [_fun2, '请选择性别'],
+			}
+		});
+		
+		function _fun2(target){
+			var td = target.parent().parent(),
+				radios = td.find(':radio'),
+				chked = false;
+			radios.each(function(i,n){
+				if($(n).is(':checked')){
+					chked = true;
+					return false;
+				}
+			});
+			return chked;
+		}
+	</script>
+</div>
+
+
+<div class="demo">
+	<h3 class="tit">6、checkbox多选</h3>
+	<form id="form6">
+		<table class="form-list">
+			<tr>
+				<th>复选框验证，最少选两个：</th>
+				<td>
+					<label><input type="checkbox" name="xxx1" rules="chk" /> 选项1</label> 
+					<label><input type="checkbox" name="xxx2" /> 选项2</label>
+					<label><input type="checkbox" name="xxx3" /> 选项2</label>
+					<label><input type="checkbox" name="xxx4" /> 选项3</label>
+					<label><input type="checkbox" name="xxx5" /> 选项3</label>
+				</td>
+			</tr>
+		</table>
+		<button type="submit" class="ui-btn-submit" >点击验证</button>
+	</form>
+	<p class="desc">通常是在第一个checkbox上定一个rules，然后通过函数来验证
+	<pre>
+		$('#form6').validate({
+			regexp: {
+				chk: [_fun3, '请最少选择两项'],
+			}
+		});
+		
+		function _fun3(target){
+			var td = target.parent().parent(),
+				checkboxs = td.find(':checkbox'),
+				num = 0;
+			checkboxs.each(function(i,n){
+				if($(n).is(':checked')){
+					num += 1;
+				}
+			});
+			return num >= 2;
+		}
+	</pre>
+	<script>
+		$('#form6').validate({
+			regexp: {
+				chk: [_fun3, '请最少选择两项'],
+			}
+		});
+		
+		function _fun3(target){
+			var td = target.parent().parent(),
+				checkboxs = td.find(':checkbox'),
+				num = 0;
+			checkboxs.each(function(i,n){
+				if($(n).is(':checked')){
+					num += 1;
+				}
+			});
+			return num >= 2;
+		}
+	</script>
+</div>
+<div class="demo">
+	<h3 class="tit">7、非form包裹的表单验证</h3>
+	<div id="div1">
+		<table class="form-list">
+			<tr>
+				<th>url：</th>
+				<td>
+					<input type="text" placeholder="请输入url" rules="url" /> 
+				</td>
+			</tr>
+		</table>
+		<input type="button" value="点击验证" id="divBtn" class="ui-btn" />
+	</div>
+	<p class="desc">相对于form包裹，非form包裹的整体验证需要手动调用validate控件的submit方法，如果都通过了验证改方法返回true。
+	<pre>
+		$('#div1').validate();
+		
+		$('#divBtn').live('click',function(){
+			if($('#div1').validate('submit')){
+				alert('验证通过');
+			}else{
+				alert('验证失败');
+			}
+		});
+	</pre>
+	<script>
+		$('#div1').validate();
+		
+		$('#divBtn').live('click',function(){
+			if($('#div1').validate('submit')){
+				alert('验证通过');
+			}else{
+				alert('验证失败')
+			}
+		});
+	</script>
+</div>

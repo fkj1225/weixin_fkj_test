@@ -1,0 +1,26 @@
+.tree{ overflow: hidden; zoom: 1; line-height: 24px;}
+.tree li{ width: 100%;}
+.ui-icon-plus,.ui-icon-minus{ display: inline-block; vertical-align: middle; margin: 0 0 3px -4px;}
+.ui-widget-content .ui-icon-plus,.ui-widget-content .ui-icon-minus{ background-image: url("images/ui-icons_b83400_256x240.png");}
+.tree ul{ overflow: hidden;}
+.tree a{ color: #000; text-decoration: none;}
+
+.tree .node{ 
+	margin-bottom: 2px; 
+	height: 24px; 
+	overflow: hidden; 
+	position: relative; 
+	padding: 0 3px;
+	white-space: nowrap;
+}
+.tree .node:hover{ background: #f2f1f0;color: #212121; border-radius: 4px; cursor: pointer;}
+.tree .current,.tree .current:hover{ background: #af9d81; border-radius: 4px; color: #fff;}
+.tree .current a{ color: #fff;}
+.tree .hide{ display: none;}
+.tree .current .ui-icon-plus,.tree .current .ui-icon-minus{
+	background-image: url("images/ui-icons_ffffff_256x240.png");
+}
+.tree .chk{
+	vertical-align: middle;
+	margin-right: 3px;
+}

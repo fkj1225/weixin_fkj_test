@@ -1,0 +1,4 @@
+.dl-box{ position: absolute; background: #fff; padding: 3px 10px;display: none;box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2); font-size: 12px; border-radius: 5px; border: 1px solid #ccc;}
+.dl-box .txt{line-height: 24px;}
+.dl-box .a-b{ position: absolute; left: 50%; bottom: -10px;}
+.dl-box .a-b .a{ border: 10px solid; border-color: #fff transparent;border-bottom-width: 0; content: ""; display: block; height: 0; width: 0; position: relative; left: -50%; _overflow: hidden;}
